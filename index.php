@@ -15,11 +15,11 @@ $url = isset($_GET['url']) ? $_GET['url'] : 'home/index';
 
 $parts = explode('/', $url);
 
-if (!isset($parts[0]))
-    $parts[] = 'home';
+if (!isset($parts[0]) || $parts[0] == null)
+    $parts[0] = 'home';
 
-if (!isset($parts[1]))
-    $parts[] = 'index';
+if (!isset($parts[1]) || $parts[1] == null)
+    $parts[1] = 'index';
 
 // Do not differentiate between action/a/b/c and action/a/b/c/
 if ($parts[count($parts) - 1] === '')
