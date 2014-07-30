@@ -22,31 +22,23 @@
 			</div>
 	
 	
-			<div class="box-3">
+			<div class="box-3" id="recent-debates">
 				<div class="roundimage" id="debate-image"></div>
 				<h2>Recent debates</h2>
-				<div class="box-item">
-				<h3>Such debate</h3>
-				<p class="summary">Such summary</p>
-				</div>
-				<div class="box-item"> 
-				<h3>Such debate</h3>
-				<p class="summary">Such summary</p>
-				</div>
-				<div class="box-item">
-				<h3>Such debate</h3>
-				<p class="summary">Such summary</p>
-				</div>
+                <h3 name="loading">Loading...</h3>
 			</div>
 		</div>
 	</div>
 	<script>
-		$.get('/debates/summary', function(json) {
-			$.each(json, function(i, debate) {
+		$.get('/debates/summary', function(debates) {
+            $('#recent-debates [name=loading]').remove()
+            for (i = 0; i < debates.length; i++) {
 				var item = $('<div class="box-item"></div>')
-				item.html(debate['sumary'])
-				$('#box-3').append(item)
-			})
+                item.append('<h3>' + debates[i]['time'] + ' ' + debates[i]['topic'] + '</h3>')
+                item.append('<h4>' + debates[i]['speaker'] + '</h4>')
+                item.append('<p class="summary">' + debates[i]['summary'] + '</p>')
+				$('#recent-debates').append(item)
+			}
 		})
 	</script>   
 {%insert _templates:footer %endinsert}
