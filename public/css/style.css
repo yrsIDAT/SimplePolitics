@@ -195,7 +195,7 @@ p {
 }
 .profile-top {
     margin-top: -100px;
-    padding-left: 50px;
+    padding: 0 50px;
 }
 .profile-image {
     height: 175px;
@@ -212,7 +212,28 @@ p {
     vertical-align: bottom;
     margin-left: 25px;
 }
-
+.profile-main {
+    max-width: 1300px;
+    width: 95%;
+    overflow: auto;
+    margin: 0 auto;
+    padding: 0 50px;
+}
+.profile-info {
+    list-style: none;
+    float: left;
+    width: 195px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.constituency {
+    margin: 20px 0;
+}
+.profile-feed {
+    display: inline-block;
+    list-style: none;
+}
 /* Footer */
 footer {
     color: grey;
