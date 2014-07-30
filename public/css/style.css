@@ -29,6 +29,9 @@ p {
     margin: 0 auto;
 }
 .menu {
+    position: fixed;
+    top: 0px;
+    width: 100%;
     background-color: #004a75;
     border-bottom: 3px solid #022e48;
 }
@@ -194,8 +197,11 @@ p {
     background-attachment: fixed;
 }
 .profile-top {
-    margin-top: -100px;
+    margin: -100px auto 0 auto;
     padding: 0 50px;
+    max-width: 1300px;
+    width: 95%;
+    box-sizing: border-box;
 }
 .profile-image {
     height: 175px;
@@ -218,6 +224,7 @@ p {
     overflow: auto;
     margin: 0 auto;
     padding: 0 50px;
+    box-sizing: border-box;
 }
 .profile-info {
     list-style: none;
@@ -229,7 +236,37 @@ p {
 }
 .constituency {
     margin: 20px 0;
+    font-size: 20px;
 }
+li.follow {
+    padding: 9px 20px;
+    background: #0FC281;
+    margin: 0 auto;
+    border-radius: 8px;
+    color: #FFF;
+    font-family: "opensansbold", sans-serif;
+    border-bottom: 3px solid #158606;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+li.follow:hover {
+    background: #0FB87A;;
+    border-bottom: 3px solid #158606;
+}
+li.follow:active {
+    background: #0FA971;
+    border-bottom: 3px solid rgba(0, 0, 0, 0);
+    padding: 11px 20px 7px 20px;
+}
+li.email {
+    padding: 20px;
+    font-size: 16px;
+}
+
 .profile-feed {
     display: inline-block;
     list-style: none;
@@ -242,4 +279,15 @@ footer {
 
 footer p.credit {
     font-size: 0.8rem;
+}
+
+/* News */
+.news-item {
+    width: 49%;
+    float: left;
+    background: red;
+}
+
+.news-item:nth-child(odd) {
+    margin-right: 1%;
 }
