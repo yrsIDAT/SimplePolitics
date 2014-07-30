@@ -1,0 +1,52 @@
+{%insert _templates:header %endinsert}
+	<div class="front-cover">
+		<h1 class="cover-type">Politics made simple.</h1>
+	</div>
+
+	<div class="content">
+		<div class="boxes">
+			<div class="box-3">
+				<div class="roundimage" id="parliament-image"></div>
+				<h2>What is politics?</h2>
+				<p>Middle aged, heterosexual, white men arguing about young & old, lesbian, black women.</p>
+				<p>Also dolor ipsum sit amet</p>
+			</div>
+			<div class="box-3" style="text-align: center">
+				<div class="roundimage" id="mp-image"></div>
+				<h2>Find your MP</h2>
+				<p><span class="button">Automatically</span></p>
+				<p>Or using your postcode</p>
+				<form>
+				<input id="postcode" name="postcode" type="text" placeholder="Postcode" required/>
+				</form>
+			</div>
+	
+	
+			<div class="box-3">
+				<div class="roundimage" id="debate-image"></div>
+				<h2>Recent debates</h2>
+				<div class="box-item">
+				<h3>Such debate</h3>
+				<p class="summary">Such summary</p>
+				</div>
+				<div class="box-item"> 
+				<h3>Such debate</h3>
+				<p class="summary">Such summary</p>
+				</div>
+				<div class="box-item">
+				<h3>Such debate</h3>
+				<p class="summary">Such summary</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$.get('/debates/summary', function(json) {
+			$.each(json, function(i, debate) {
+				var item = $('<div class="box-item"></div>')
+				item.html(debate['sumary'])
+				$('#box-3').append(item)
+			})
+		})
+	</script>   
+{%insert _templates:footer %endinsert}

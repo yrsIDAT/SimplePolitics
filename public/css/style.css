@@ -1,0 +1,224 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: #fff;
+    font-family: 'opensansregular', sans-serif;
+}
+h1 {
+    font-family: "opensanslight", sans-serif;
+    font-weight: normal;
+    font-size: 50px;
+}
+h2 {
+    font-family: "opensansbold", sans-serif;
+    text-align: center;
+}
+h3 {
+    font-family: "opensansbold", sans-serif;
+    font-size: 18px;
+    margin: 0 0 10px 0;
+}
+p {
+    margin: 5px 0;
+}
+.content {
+    max-width: 1300px;
+    width: 95%;
+    height: 100%;
+    margin: 0 auto;
+}
+.menu {
+    background-color: #004a75;
+    border-bottom: 3px solid #022e48;
+}
+
+.page-item {
+    font-family: "opensanslight", sans-serif;
+    display: inline-block;
+    padding: 10px;
+    height:  100%;
+    color: #fff;
+    margin: 0 5px;
+}
+.logo {
+    background-image: url();
+    margin: 0 5px 0 0;
+}
+.login {
+    float: right;
+    margin: 0 0 0 5px;
+
+}
+.page-item:hover {
+    background-color: #022e48;
+}
+
+.front-cover {
+    background-image: url(/img/frontcover.jpg);
+    width: 100%;
+    max-height: 500px;
+    min-height: 350px;
+    height: 50%;
+    background-size: cover;
+    background-position: 75% 50%;
+    display: table;
+    background-attachment: fixed;
+}
+.cover-type {
+    display: table-cell;
+    color: #fff;
+    vertical-align: middle;
+    text-align: center;
+}
+.boxes {
+    text-align: center;
+}
+.box-3 {
+    width: 31%;
+    min-width: 300px;
+    margin: 0 ;
+    display: inline-table;
+    min-height: 250px;
+    overflow: hidden;
+    box-sizing: border-box;
+
+}
+
+.box-3:first-child {
+    margin-left: 0;
+}
+
+.box-3:last-child {
+    margin-right: 0;
+}
+
+.roundimage {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    border: 5px solid #dbdbdb;
+    background-size: cover;
+    margin: 20px auto;
+}
+#parliament-image {
+    background-image: url(/img/bigben.jpg);
+}
+#mp-image {
+    background-image: url(/img/mp.jpg);
+}
+#debate-image {
+    background-image: url(/img/debate.jpg);
+}
+#postcode {
+    text-align: center;
+    width: 60%;
+    min-width: 150px ;
+    margin:0 auto 20px auto;
+    box-sizing: border-box;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 17px;
+}
+
+input:focus {
+    outline: 0;
+}
+
+#postcode:focus {
+    border-color: #666666;
+}
+
+.box-item {
+    background: #F1F1F1;
+    padding: 10px;
+    margin: 6px 0;
+    border-bottom: 3px solid #d4d4d4;
+    text-align: left;
+}
+
+.button {
+    padding: 10px;
+    width: 50%;
+    display: block;
+    margin: 6px 0;
+    border-bottom: 3px solid #d4d4d4;
+    background: url(/img/noise.png) #F1F1F1;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.button:active {
+    background: #E2E2E2;
+    position: relative;
+    top: 3px;
+    border-bottom: rgba(0,0,0,0) 3px solid;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+.page-heading {
+    color: black;
+    line-height: 1.5;
+}
+
+.box-2 {
+    width: 49%;
+    margin: 1%;
+    display: block;
+    float: left;
+    overflow: hidden;
+
+}
+
+.box-2:first-child {
+    margin-left: 0;
+}
+
+.box-2:last-child {
+    margin-right: 0;
+}
+
+/* Profile Page */
+.profile-cover {
+    background-image: url(/img/frontcover.jpg);
+    width: 100%;
+    height: 300px;
+    background-size: cover;
+    background-position: 75% 50%;
+    display: table;
+    background-attachment: fixed;
+}
+.profile-top {
+    margin-top: -100px;
+    padding-left: 50px;
+}
+.profile-image {
+    height: 175px;
+    width: 175px;
+    border-radius: 150px;
+    border: 10px solid #fff;
+    overflow: hidden;
+    display: inline-table;
+    vertical-align: center;
+
+}
+.mp-name {
+    display: inline-table;
+    vertical-align: bottom;
+    margin-left: 25px;
+}
+
+/* Footer */
+footer {
+    color: grey;
+    text-align: center;
+}
+
+footer p.credit {
+    font-size: 0.8rem;
+}

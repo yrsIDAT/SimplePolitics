@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <script src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+        <script>
+            var geoObject = new function () {
+                var limit = new Date() + 500
+                var geoObj = {coords: {latitude:0, longitude:0}}
+                var self = this
+                var ready = false
+                function setGeoObject(object) {
+                    geoObj = object
+                    ready = true
+                }
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(setGeoObject)
+                }
+                this.getLocation = function () {
+                    return geoObj
+                }
+                this.isReady = function () { return ready || ready = new Date()  }
+            }
+            function requestMP() {
+                if (!geoObject.isReady())
+                coords = geoObject.getLocation()['coords']
+                $.get('/mp/fromcoords/(' + coords['latitude'] + ',' + coords['longitude'] + ')', function (respText) {
+                    $(document).ready(function() {
+                        $('#MyMP').html(respText)
+                    })
+                })
+            }
+            setTimeout(requestMP, 100)
+        </script>
+    </head>
+    <body>
+        <div id="MyMP">
+        </div>
+    </body>
+</html>
