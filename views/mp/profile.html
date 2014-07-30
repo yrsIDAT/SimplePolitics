@@ -1,34 +1,36 @@
 {%insert _templates:header %endinsert}
     
     <div class="profile-cover"></div>
-	<div class="profile-top">
-        <img class="profile-image" src="/img/debate.jpg"></img>
-        <h1 class="mp-name"> Ipsum Name </h1>
-    </div>
-    <div class="profile-main">
-        <ul class="profile-info">
-            <li class="constituency"> MP for Hackney</li>
-            <li class="follow">+ Follow </li>
-            <h2> Contact </h2>
-            <li class="email">xyz@x.gov.uk</li>
-        </ul>
-        <ul class="profile-feed">
-            <li class="feed-item">
-				<h3>Such debate</h3>
-				<p class="summary">Such summary</p>
-            </li>
-            <li class="feed-item">
-				<h3>Such debate</h3>
-				<p class="summary">Such summary</p>
-            </li>
-            <li class="feed-item">
-				<h3>Such debate</h3>
-				<p class="summary">Such summary</p>
-            </li>
-            <li class="feed-item">
-				<h3>Such debate</h3>
-				<p class="summary">Such summary</p>
-            </li>
-        </ul>
+    <div class="profile">
+    	<div class="profile-1">
+            <img class="profile-image" src="/img/debate.jpg"></img>
+            <ul class="profile-info">
+                <li class="constituency"> MP for Hackney</li>
+                <button type="button" class="button">+ Follow </button>
+                <a href="emailto:xyz@x.gov.uk"><button type="button" id="profile-mail" class="button"><span class="icon-mail2"></span>Message </button>
+    </a>
+            </ul>
+        </div>
+        <div class="profile-2">
+            <h1 class="mp-name"> Ipsum Name </h1>
+            <ul class="profile-feed">
+                <li class="feed-item">
+    				<h3>Such debate</h3>
+    				<p class="summary">Such summary</p>
+                </li>
+                <li class="feed-item">
+    				<h3>Such debate</h3>
+    				<p class="summary">Such summary</p>
+                </li>
+                <li class="feed-item">
+    				<h3>Such debate</h3>
+    				<p class="summary">Such summary</p>
+                </li>
+                <li class="feed-item">
+    				<h3>Such debate</h3>
+    				<p class="summary">Such summary</p>
+                </li>
+            </ul>
+        </div>
     </div>
 {%insert _templates:footer %endinsert}

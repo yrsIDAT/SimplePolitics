@@ -1,27 +1,3 @@
-
-@font-face {
-    font-family: 'sofiaprolight';
-    src: url('SofiaPro/SofiaProLight-webfont.eot');
-    src: url('SofiaPro/SofiaProLight-webfont.eot?#iefix') format('embedded-opentype'),
-url('SofiaPro/SofiaProLight-webfont.woff') format('woff'),
-url('SofiaPro/SofiaProLight-webfont.ttf') format('truetype'),
-url('SofiaPro/SofiaProLight-webfont.svg#sofia_pro_lightregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-@font-face {
-    font-family: 'bebas';
-    src: url('Bebas/bebas___-webfont-webfont.eot');
-    src: url('Bebas/bebas___-webfont-webfont.eot?#iefix') format('embedded-opentype'),
-url('Bebas/bebas___-webfont-webfont.woff') format('woff'),
-url('Bebas/bebas___-webfont-webfont.ttf') format('truetype'),
-url('Bebas/bebas___-webfont-webfont.svg#bebasregular') format('svg');
-	font-weight: normal;
-    font-style: normal;
-
-}
 @font-face {
     font-family: 'opensanslight';
     src: url('OpenSans/opensans-light-webfont.eot');
@@ -56,70 +32,80 @@ url('OpenSans/opensans-regular-webfont.ttf') format('truetype');
 
 }
 
-@font-face {
-    font-family: 'ralewaylight';
-    src: url('Raleway/raleway-light-webfont.eot');
-    src: url('Raleway/raleway-light-webfont.eot?#iefix') format('embedded-opentype'),
-url('Raleway/raleway-light-webfont.woff') format('woff'),
-url('Raleway/raleway-light-webfont.ttf') format('truetype'),
-url('Raleway/raleway-light-webfont.svg#ralewaylight') format('svg');
-    font-weight: normal;
-    font-style: normal;
 
-}
 @font-face {
-    font-family: 'ralewayregular';
-    src: url('Raleway/raleway-regular-webfont.eot');
-    src: url('Raleway/raleway-regular-webfont.eot?#iefix') format('embedded-opentype'),
-url('Raleway/raleway-regular-webfont.woff') format('woff'),
-url('Raleway/raleway-regular-webfont.ttf') format('truetype'),
-url('Raleway/raleway-regular-webfont.svg#ralewayregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot?j9g5zz');
+	src:url('fonts/icomoon.eot?#iefixj9g5zz') format('embedded-opentype'),
+		url('fonts/icomoon.woff?j9g5zz') format('woff'),
+		url('fonts/icomoon.ttf?j9g5zz') format('truetype'),
+		url('fonts/icomoon.svg?j9g5zz#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
 }
 
-@font-face {
-    font-family: 'ralewaybold';
-    src: url('Raleway/raleway-bold-webfont.eot');
-    src: url('Raleway/raleway-bold-webfont.eot?#iefix') format('embedded-opentype'),
-url('Raleway/raleway-bold-webfont.woff') format('woff'),
-url('Raleway/raleway-bold-webfont.ttf') format('truetype'),
-url('Raleway/raleway-bold-webfont.svg#ralewaybold') format('svg');
-    font-weight: normal;
-    font-style: normal;
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
 
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
-@font-face {
-    font-family: 'museoslab';
-    src: url('Museo/museo_slab_500-webfont.eot');
-    src: url('Museo/museo_slab_500-webfont.eot?#iefix') format('embedded-opentype'),
-url('Museo/museo_slab_500-webfont.woff') format('woff'),
-url('Museo/museo_slab_500-webfont.ttf') format('truetype'),
-url('Museo/museo_slab_500-webfont.svg#museo_slab500') format('svg');
-    font-weight: normal;
-    font-style: normal;
 
+.icon-newspaper:before {
+	content: "\e600";
 }
-@font-face {
-    font-family: 'ashburylight';
-    src: url('Ashbury/AshburyLig-webfont.eot');
-    src: url('Ashbury/AshburyLig-webfont.eot?#iefix') format('embedded-opentype'),
-url('Ashbury/AshburyLig-webfont.woff') format('woff'),
-url('Ashbury/AshburyLig-webfont.ttf') format('truetype'),
-url('Ashbury/AshburyLig-webfont.svg#ashburylight') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
+.icon-file:before {
+	content: "\e601";
 }
-@font-face {
-    font-family: 'crimsonroman';
-    src: url('Crimson/crimsontext-roman-webfont.eot');
-    src: url('Crimson/crimsontext-roman-webfont.eot?#iefix') format('embedded-opentype'),
-url('Crimson/crimsontext-roman-webfont.woff') format('woff'),
-url('Crimson/crimsontext-roman-webfont.ttf') format('truetype'),
-url('Crimson/crimsontext-roman-webfont.svg#crimson_textroman') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
+.icon-location:before {
+	content: "\e602";
+}
+.icon-location2:before {
+	content: "\e603";
+}
+.icon-compass:before {
+	content: "\e604";
+}
+.icon-calendar:before {
+	content: "\e605";
+}
+.icon-bubbles:before {
+	content: "\e606";
+}
+.icon-list:before {
+	content: "\e607";
+}
+.icon-globe:before {
+	content: "\e608";
+}
+.icon-thumbs-up:before {
+	content: "\e609";
+}
+.icon-thumbs-up2:before {
+	content: "\e60a";
+}
+.icon-smiley:before {
+	content: "\e60b";
+}
+.icon-sad:before {
+	content: "\e60c";
+}
+.icon-angry:before {
+	content: "\e60d";
+}
+.icon-wondering:before {
+	content: "\e60e";
+}
+.icon-mail:before {
+	content: "\e60f";
+}
+.icon-mail2:before {
+	content: "\e610";
 }

@@ -7,6 +7,18 @@
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/fonts/stylesheet.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="public/js/imagesloaded.pkgd.js"></script>
+<script src="public/js/masonry.pkgd.min.js"></script>
+<script>
+$(function(){
+
+    var $container = $('#masonry');
+    $container.imagesLoaded( function() {
+        $container.masonry();
+    });
+    
+});
+</script>
 <script src="/js/functions.js"></script>
 
 </head>
