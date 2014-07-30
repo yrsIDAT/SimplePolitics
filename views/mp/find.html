@@ -1,9 +1,9 @@
-<html>
-    <head>
+{%insert _templates:header %endinsert}
         <script src="//code.jquery.com/jquery-2.1.0.min.js"></script>
         <script>
+{%if from_coords {?
             var geoObject = new function () {
-                var limit = new Date() + 500
+                var limit = new Date()
                 var geoObj = {coords: {latitude:0, longitude:0}}
                 var self = this
                 var ready = false
@@ -17,22 +17,32 @@
                 this.getLocation = function () {
                     return geoObj
                 }
-                this.isReady = function () { return ready || ready = new Date()  }
+                this.isReady = function () {
+                    return ready || (ready = (new Date() - limit) > 1000)
+                }
             }
             function requestMP() {
-                if (!geoObject.isReady())
+                if (!geoObject.isReady()) { return setTimeout(requestMP, 100) }
                 coords = geoObject.getLocation()['coords']
-                $.get('/mp/fromcoords/(' + coords['latitude'] + ',' + coords['longitude'] + ')', function (respText) {
-                    $(document).ready(function() {
-                        $('#MyMP').html(respText)
-                    })
+                $.ajax('/mp/fromcoords/(' + coords['latitude'] + ',' + coords['longitude'] + ')', {
+                    success: function (mpID) { location.replace('/mp/profile/' + mpID) },
+                    error: function (xhr) { $('#status').html('<span style="color:red">Error: ' + xhr.responseText + '</span>') }
                 })
             }
-            setTimeout(requestMP, 100)
+?} else {?
+            function requestMP() {
+                $.ajax('/mp/frompostcode/{%{postcode}%}', {
+                    success: function (mpID) { location.replace('/mp/profile/' + mpID) },
+                    error: function (xhr) { $('#status').html('<span style="color:red">Error: ' + xhr.responseText + '</span>') }
+                })
+            }
+?} %endif}
+            requestMP()
         </script>
     </head>
     <body>
-        <div id="MyMP">
-        </div>
-    </body>
-</html>
+        <br><br><br><br><br>
+        <h2 id="status">
+            Finding your local MP...
+        </h2>
+{%insert _templates:footer %endinsert}

@@ -16,7 +16,7 @@
 				<h2>Find your MP</h2>
             	<button type="button" class="button" id="mplocate"><span class="icon-location"></span> Automatically </button>
 				<p>Or using your postcode</p>
-				<form>
+				<form id="mp-postcode">
 				<input id="postcode" name="postcode" type="text" placeholder="Postcode" required/>
 				</form>
 			</div>
@@ -30,15 +30,25 @@
 		</div>
 	</div>
 	<script>
-		$.get('/debates/summary', function(debates) {
+        $.get('/debates/summary', function(debates) {
             $('#recent-debates [name=loading]').remove()
             for (i = 0; i < debates.length; i++) {
-				var item = $('<div class="box-item"></div>')
+                var item = $('<div class="box-item"></div>')
                 item.append('<h3>' + debates[i]['time'] + ' ' + debates[i]['topic'] + '</h3>')
                 item.append('<h4>' + debates[i]['speaker'] + '</h4>')
                 item.append('<p class="summary">' + debates[i]['summary'] + '</p>')
-				$('#recent-debates').append(item)
-			}
-		})
+                $('#recent-debates').append(item)
+            }
+        })
+
+        $('form#mp-postcode').on('submit', function(event) {
+            event.preventDefault()
+            console.log(event)
+            window.location = '/mp/find/' + $('#postcode').val()
+        })
+
+        $('#mplocate').click(function() {
+             window.location = 'mp/find'
+        })
 	</script>   
 {%insert _templates:footer %endinsert}

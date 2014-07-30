@@ -200,7 +200,7 @@ class Provider
 
 function showError($code, $message)
 {
-    header('', false, $code);
+    http_response_code($code);
     try {
         die(Template::getTemplate("_errors:$code")->parse(array('error_message' => $message)));
     } catch (Exception $e) {
