@@ -73,6 +73,16 @@ class Debates
     {
         $twfy = $this->libraries->load('TWFYAPI', TWFY_KEY);
         $debates = json_decode($twfy->query('getDebates', array("gid" => $gid, "output" => "js", "type" => 'commons')));
-        var_dump($debates);
+        $debate = null;
+        foreach ($debates as $debateRes) {
+            if ($debateRes->gid === $gid) {
+                $debate = $debateRes;
+                break;
+            }
+        }
+        if ($debate === null) {
+            die("Could not find debate");
+        }
+        echo Template::getTemplate('debates:full')->parse(array('debate' => $debate));
     }
 }
