@@ -4,32 +4,13 @@
         <h1 class="page-heading">News</h1>
         
 		<div class="boxes" id="masonry">
+{%for item in news {
     		<div class="news-item">
-                <h2>Very news</h2>
-                <img src="http://37.media.tumblr.com/b062a3f3f5903aff7c16d6223807fdc6/tumblr_n9hbvwL64T1qaspl7o1_1280.jpg" alt="Kim takes over the world" />
-                <p>So many news.</p>
-                <p>Moar news.</p>
+                <h2><a href="{%{ item.link }%}">{%{ item.title }%}</a></h2>
+                <p>{%{ item.pubDate }%}</p>
+                <p>{%{ item.description }%}</p>
             </div>
-            
-            <div class="news-item">
-                <h2>Very news</h2>
-                <p>So many news.</p>
-                <p>Moar news.</p>
-            </div>
-            
-            <div class="news-item">
-                <h2>Very news</h2>
-                <img src="http://37.media.tumblr.com/b062a3f3f5903aff7c16d6223807fdc6/tumblr_n9hbvwL64T1qaspl7o1_1280.jpg" alt="Kim takes over the world" />
-                <p>So many news.</p>
-                <p>Moar news.</p>
-            </div>
-            
-            <div class="news-item">
-                <h2>Very news</h2>
-                <img src="http://37.media.tumblr.com/b062a3f3f5903aff7c16d6223807fdc6/tumblr_n9hbvwL64T1qaspl7o1_1280.jpg" alt="Kim takes over the world" />
-                <p>So many news.</p>
-                <p>Moar news.</p>
-            </div>
+} %endfor}
 		</div>
 	</div>
     
