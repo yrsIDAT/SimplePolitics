@@ -40,14 +40,23 @@ class Debates
             $date = date("Y-m-d");
         }
         $twfy = $this->libraries->load('TWFYAPI', TWFY_KEY);
-        var_dump(json_decode($twfy->query('getDebates', array("date" => $date, "output" => "js", "type" => 'commons'))));
+        $debates = @json_decode($twfy->query('getDebates', array("date" => $date, "output" => "js", "type" => 'commons')));
+        $this->listDebates($debates);
     }
 
     public function last($last)
     {
         $twfy = $this->libraries->load('TWFYAPI', TWFY_KEY);
-        header('Content-Type: application/json');
-        echo($twfy->query('getDebates', array("search" => "*", "output" => "js", "type" => 'commons', 'num' => $last)));
+        $debates = @json_decode($twfy->query('getDebates', array("search" => "*", "output" => "js", "type" => 'commons', 'num' => $last)));
+        $this->listDebates($debates);
+    }
+
+    private function listDebates(stdClass $debates)
+    {
+        echo Template::getTemplate('debates:list')->parse(array(
+            'debates' => isset($debates->rows) ? $debates->rows : array(),
+            'empty' => !isset($debates->rows) || count($debates->rows) === 0
+        ));
     }
 
     public function summary($num = 3)

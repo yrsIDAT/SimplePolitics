@@ -1,0 +1,18 @@
+{%insert _templates:header %endinsert}
+
+{%if empty {?
+
+    No Debates found
+
+?}%endif}
+
+{%for debate in debates {
+    {%{debate.hdate}%} {%{debate.htime}%}
+    <br>
+    {%{debate.speaker.first_name}%} {%{debate.speaker.last_name}%}
+    <br>
+    {%{debate.extract}%}
+    <br>
+}%endfor}
+
+{%insert _templates:footer %endinsert}
