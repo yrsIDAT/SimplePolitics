@@ -1,44 +1,32 @@
 {%insert _templates:header %endinsert}
 
-        <br><br><br><br><br>
-        <h2 id="status">
-            Finding your local MP...
-        </h2>
+        <div style="text-align: center;">
+            <h2>Find your MP</h2>
+            <button type="button" class="button" id="mplocate"><span class="icon-location"></span> Automatically </button>
+            <p>Or using your postcode</p>
+            <form id="mp-postcode">
+                <input id="postcode" name="postcode" type="text" placeholder="Postcode" required style="width:auto"/>
+            </form>
+            <p>Or by name</p>
+            <form id="mp-name">
+                <input id="mpname" name="name" type="text" placeholder="Full Name" required style="width:auto"/>
+            </form>
+        </div>
 
         <script>
-{%if from_coords {?
-            var geoObject = new function () {
-                var limit = new Date()
-                var geoObj = {coords: {latitude:0, longitude:0}}
-                var self = this
-                var ready = false
-                function setGeoObject(object) {
-                    geoObj = object
-                    ready = true
-                }
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(setGeoObject)
-                }
-                this.getLocation = function () {
-                    return geoObj
-                }
-                this.isReady = function () {
-                    return ready || (ready = (new Date() - limit) > 5000)
-                }
-            }
-            function requestMP() {
-                if (!geoObject.isReady()) { return setTimeout(requestMP, 100) }
-                coords = geoObject.getLocation()['coords']
-                $.ajax('/mp/fromcoords/(' + coords['latitude'] + ',' + coords['longitude'] + ')', {
-?} else {?
-            function requestMP() {
-                $.ajax('/mp/frompostcode/{%{postcode}%}', {
-?} %endif}
-                    success: function (mpID) { location.replace('/mp/profile/' + mpID) },
-                    error: function (xhr) { $('#status').html('<span style="color:red">Error: ' + xhr.responseText + '</span>') }
-                })
-            }
-            requestMP()
+            $('form#mp-postcode').on('submit', function(event) {
+                event.preventDefault()
+                window.location = '/mp/search/postcode/' + $('#postcode').val()
+            })
+
+            $('form#mp-name').on('submit', function(event) {
+                event.preventDefault()
+                window.location = '/mp/search/name/' + $('#mpname').val()
+            })
+
+            $('#mplocate').click(function() {
+                 window.location = '/mp/search/auto'
+            })
         </script>
 
 {%insert _templates:footer %endinsert}

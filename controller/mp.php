@@ -6,16 +6,25 @@ class MP
     {
         $mapper->map('fromcoords')->setMinParams(1);
         $mapper->map('frompostcode')->setMinParams(1);
+        $mapper->map('fromname')->setMinParams(1);
         $mapper->map('profile')->setMinParams(1);
         $mapper->map('contact')->setMinParams(1);
+        $mapper->map('search')->setMinParams(1);
     }
 
-    public function find($postcode = null)
+    public function search($type, $value = null)
     {
-        echo Template::getTemplate('mp:find')->parse(array(
-            'from_coords' => $postcode == null,
-            'postcode' => $postcode)
+        echo Template::getTemplate('mp:search')->parse(array(
+            'coords' => $type === 'auto',
+            'postcode' => $type === 'postcode',
+            'name' => $type === 'name',
+            'value' => $value)
         );
+    }
+
+    public function find()
+    {
+        echo Template::getTemplate('mp:find')->parse();
     }
 
     public function fromcoords($coords)
@@ -106,5 +115,16 @@ class MP
             die("Unable to find contact details for {$name}");
         }
         header("Location: {$mpInfo->member_biography_url}");
+    }
+
+    public function fromname($name)
+    {
+        $twfy = $this->libraries->load('TWFYAPI', TWFY_KEY);
+        $mps = @json_decode($twfy->query('getMPs', array("search" => $name, "output" => "js")));
+        if ($mps === null || count($mps) === 0) {
+            http_response_code(404);
+            die("Could not find MP from name");
+        }
+        echo $mps[0]->person_id;
     }
 }

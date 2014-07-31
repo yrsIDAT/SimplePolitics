@@ -1,0 +1,58 @@
+{%insert _templates:header %endinsert}
+
+        <br><br><br><br><br>
+        <h2 id="status">
+{%if coords {?
+            Finding your local MP...
+?} %endif}
+{%if postcode {?
+            Finding MP for {%{value}%}
+?} %endif}
+{%if name {?
+            Finding MP with name {%{value}%}
+?} %endif}
+        </h2>
+
+        <script>
+{%if coords {?
+            var geoObject = new function () {
+                var limit = new Date()
+                var geoObj = {coords: {latitude:0, longitude:0}}
+                var self = this
+                var ready = false
+                function setGeoObject(object) {
+                    geoObj = object
+                    ready = true
+                }
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(setGeoObject)
+                }
+                this.getLocation = function () {
+                    return geoObj
+                }
+                this.isReady = function () {
+                    return ready || (ready = (new Date() - limit) > 5000)
+                }
+            }
+            function requestMP() {
+                if (!geoObject.isReady()) { return setTimeout(requestMP, 100) }
+                coords = geoObject.getLocation()['coords']
+                $.ajax('/mp/fromcoords/(' + coords['latitude'] + ',' + coords['longitude'] + ')', {
+?} %endif}
+{%if postcode {?
+            function requestMP() {
+                $.ajax('/mp/frompostcode/{%{value}%}', {
+?} %endif}
+
+{%if name {?
+            function requestMP() {
+                $.ajax('/mp/fromname/{%{value}%}', {
+?} %endif}
+                    success: function (mpID) { location.replace('/mp/profile/' + mpID) },
+                    error: function (xhr) { $('#status').html('<span style="color:red">Error: ' + xhr.responseText + '</span>') }
+                })
+            }
+            requestMP()
+        </script>
+
+{%insert _templates:footer %endinsert}

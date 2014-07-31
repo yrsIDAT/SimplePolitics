@@ -39,11 +39,11 @@
 
         $('form#mp-postcode').on('submit', function(event) {
             event.preventDefault()
-            window.location = '/mp/find/' + $('#postcode').val()
+            window.location = '/mp/search/' + $('#postcode').val()
         })
 
         $('#mplocate').click(function() {
-             window.location = 'mp/find'
+             window.location = '/mp/search/auto'
         })
 	</script>   
 {%insert _templates:footer %endinsert}
