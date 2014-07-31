@@ -68,7 +68,7 @@ class MP
                 'summary' => $debate->extract,
                 'topic' => $debate->parent->body,
                 'date' => $debate->hdate,
-                'gid' => $debate->gid);
+                'gid' => $this->getDebateGid($debate->listurl));
         }
         echo Template::getTemplate('mp:profile')->parse(array(
             'personID' => $personID,
@@ -80,6 +80,12 @@ class MP
             'debates' => $debates,
             'partyColor' => $this->getColorFromParty($mp->party)
         ));
+    }
+
+    private function getDebateGid($listURL)
+    {
+        parse_str(parse_url($listURL)['query'], $query);
+        return $query['id'];
     }
 
     private function getColorFromParty($partyName)

@@ -1,7 +1,9 @@
 {%insert _templates:header %endinsert}
 
-<!-- For a full list of debate properties, see the "rows" object in the example at http://www.theyworkforyou.com/api/docs/getDebates -->
 
-{%{debate.body}%}
+{%for data in debate {
+    <!-- For a full list of debate properties, see the "rows" object in the example at http://www.theyworkforyou.com/api/docs/getDebates -->
+    <div style="margin:5px 100px;background:lightgray">{%{data.body}%}</div>
+}%endfor}
 
 {%insert _templates:footer %endinsert}

@@ -61,7 +61,7 @@ class Debates
                 'speaker' => $debate->speaker->first_name . ' ' . $debate->speaker->last_name,
                 'summary' => $debate->extract,
                 'topic' => $debate->parent->body,
-                'gid' => $debate->gid
+                'gid' => $this->getDebateGid($debate->listurl)
             );
             $summaries[] = $summary;
         }
@@ -69,20 +69,16 @@ class Debates
         echo json_encode($summaries);
     }
 
+    private function getDebateGid($listURL)
+    {
+        parse_str(parse_url($listURL)['query'], $query);
+        return $query['id'];
+    }
+
     public function full($gid)
     {
         $twfy = $this->libraries->load('TWFYAPI', TWFY_KEY);
-        $debates = json_decode($twfy->query('getDebates', array("gid" => $gid, "output" => "js", "type" => 'commons')));
-        $debate = null;
-        foreach ($debates as $debateRes) {
-            if ($debateRes->gid === $gid) {
-                $debate = $debateRes;
-                break;
-            }
-        }
-        if ($debate === null) {
-            die("Could not find debate");
-        }
+        $debate = json_decode($twfy->query('getDebates', array("gid" => $gid, "output" => "js", "type" => 'commons')));
         echo Template::getTemplate('debates:full')->parse(array('debate' => $debate));
     }
 }
