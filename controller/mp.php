@@ -55,7 +55,7 @@ class MP
         $debatesData = json_decode($twfy->query('getDebates', array('person' => $personID, 'num' => 4, 'output' => 'js', 'type' => 'commons')));
         $debates = array();
         foreach ($debatesData->rows as $debate) {
-            $debates[] = array('summary' => $debate->extract, 'topic' => $debate->parent->body);
+            $debates[] = array('summary' => $debate->extract, 'topic' => $debate->parent->body, 'date' => $debate->hdate);
         }
         echo Template::getTemplate('mp:profile')->parse(array(
             'personID' => $personID,
@@ -71,13 +71,23 @@ class MP
 
     private function getColorFromParty($partyName)
     {
+        // Thanks to http://blog.richardallen.co.uk/uk-political-party-web-colours/
         switch ($partyName) {
-            case 'Labour':
-                return 'red';
             case 'Conservative':
-                return 'blue';
+            case 'Unionist':
+                return '#0087dc';
             case 'Liberal Democrat':
-                return 'Yellow';
+                return '#FDBB30';
+            case 'Labour':
+                return '#d50000';
+            case 'Scottish National Party':
+                return '#FFF95D';
+            case 'Plaid Cymru':
+                return '#3F8428';
+            case 'Green Party':
+                return '#008066';
+            case 'UKIP':
+                return '#EFE600';
             default:
                 return 'white';
         }
