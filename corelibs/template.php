@@ -21,14 +21,28 @@ class CodeBlock
             '#\{(?:\(<.*?>\))?%' . $modifier . '(\(\d+\)|)\s+(.*?)\s*?%(?:\(</.*?>\))?end' . $modifier . '\1(?!\(\d+\))\}\s*?(?:[\r\n]+)?#s',
             array($this, "parse_$modifier"), $text);
         }
-        $text = preg_replace_callback("#\{%\{\s*(\w+)\s*\}%\}#", array($this, "get_global_match"), $text);
+        $text = preg_replace_callback("#\{%\{\s*([\w.]+)\s*\}%\}#", array($this, "get_global_match"), $text);
         return $text;
     }
 
     private function get_global_match($matches)
     {
         $varname = $matches[1];
-        return isset($this->globals[$varname]) ? $this->globals[$varname] : "";
+        $parts = explode('.', $varname);
+        $last = array_pop($parts);
+        $arr = $this->globals;
+        foreach ($parts as $part) {
+            if (isset($arr[$part])) {
+                if (gettype($arr[$part]) === 'array') {
+                    $arr = $arr[$part];
+                } elseif (gettype($arr[$part]) === 'object') {
+                    $arr = (array) $arr[$part];
+                }
+                continue;
+            }
+            return "";
+        }
+        return $arr[$last];
     }
 
     private function parse_var($m)
