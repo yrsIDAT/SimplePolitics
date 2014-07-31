@@ -7,6 +7,7 @@ class MP
         $mapper->map('fromcoords')->setMinParams(1);
         $mapper->map('frompostcode')->setMinParams(1);
         $mapper->map('profile')->setMinParams(1);
+        $mapper->map('contact')->setMinParams(1);
     }
 
     public function find($postcode = null)
@@ -80,5 +81,16 @@ class MP
             default:
                 return 'white';
         }
+    }
+
+    public function contact($name)
+    {
+        $mpInfo = json_decode(file_get_contents("http://findyourmp.parliament.uk/api/search?q=" . urlencode($name) . "&f=js"));
+        $mpInfo = $mpInfo === null ? null : $mpInfo->results->members;
+        $mpInfo = $mpInfo === null || count($mpInfo) === 0 ? null : $mpInfo[0];
+        if ($mpInfo == null || !isset($mpInfo->member_biography_url) || !$mpInfo->member_biography_url) {
+            die("Unable to find contact details for {$name}");
+        }
+        header("Location: {$mpInfo->member_biography_url}");
     }
 }
