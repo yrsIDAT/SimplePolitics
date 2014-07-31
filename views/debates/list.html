@@ -1,8 +1,25 @@
 {%insert _templates:header %endinsert}
 
+<div style="width:auto;margin-bottom:10px;width:50%">
+<h4>Find Debates</h4>
+By Date: <input type="text" value="{%{dateQuery}%}" id="datequery"> <button class="button" style="width:auto" id="finddate">Find</button>
+<br>
+Or Last n Debates: <input type="text" value="{%{numQuery}%}" id="numquery">
+<button class="button" style="width:auto" id="findnum">Find</button>
+</div>
+<script>
+    $('#finddate').click(function(){
+        window.location = '/debates/fromDate/' + $('#datequery').val()
+    })
+
+    $('#findnum').click(function(){
+        window.location = '/debates/last/' + $('#numquery').val()
+    })
+</script>
+
 {%if empty {?
 
-    No Debates found
+    No Debates found for {%{dateQuery}%}
 
 ?}%endif}
 
