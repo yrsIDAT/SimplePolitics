@@ -1,11 +1,11 @@
 {%insert _templates:header %endinsert}
     
     <div class="content">
-        <h1 class="page-heading">News</h1>
+        <h1 class="page-heading"><span class="icon-newspaper"></span>News</h1>
         
 		<div class="boxes" id="masonry">
 {%for item in news {
-    		<div class="news-item">
+    		<div class="card news-item">
                 <h2><a href="{%{ item.link }%}">{%{ item.title }%}</a></h2>
                 <p>{%{ item.pubDate }%}</p>
                 <p>{%{ item.description }%}</p>
@@ -14,4 +14,7 @@
 		</div>
 	</div>
     
+    <script>
+        $( "a:contains('Continue reading...')" ).addClass("continuereading");
+    </script>
 {%insert _templates:footer %endinsert}

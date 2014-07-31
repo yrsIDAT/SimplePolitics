@@ -1,16 +1,16 @@
 {%insert _templates:header %endinsert}
 
-
+<div class="content">
+<h2 class="debates debate-full"> Full Debate </h2>
 {%for data in debate {
-    <!-- For a full list of debate properties, see the "rows" object in the example at http://www.theyworkforyou.com/api/docs/getDebates -->
-    <div style="margin:5px 100px;background:lightgray">{%{data.body}%}</div>
+    <div class="debate-full">{%{data.body}%}</div>
 }%endfor}
+</div>
 
 <div class="poll">
-    <h2>Questions?</h2>
+    <h2>Poll</h2>
     <div class="button" id="yes">Yes</div>
     <div class="button" id="no">No</div>
     <div class="button" id="dontknow">Don't Know</div>
 </div>
-
 {%insert _templates:footer %endinsert}

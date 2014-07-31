@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/fonts/stylesheet.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="/js/imagesloaded.pkgd.js"></script>
+<script src="/js/imagesloaded.pkgd.min.js"></script>
 <script src="/js/masonry.pkgd.min.js"></script>
 <script>
 $(function(){
@@ -24,11 +24,23 @@ $(function(){
 </head>
 
 <body>
+
     <nav class="menu">
-		<a href="/" ><div class="logo page-item"> Politics </div></a>
+		<a href="/" ><div class="logo page-item"> Politics Made Simple</div></a>
 		<a href="/about/politics" ><div class="page-item"> What is politics?</div></a>
-		<a href="/mp/find" ><div class="page-item"> Find your MP</div></a>
+		<a href="/mp/find" ><div class="page-item"> Find an MP</div></a>
 		<a href="/debates/fromDate/today" ><div class="page-item"> Debates</div></a>
 		<a href="/news" ><div class="page-item"> News</div></a>
 		<a href="/user/login" ><div class="page-item login"> Login </div></a>
+	</nav>
+	
+	<nav class="mobile-menu">
+		<div class="mobile-bar"><a href="/" ><div class="logo page-item"> Politics Made Simple</div></a> <span class="icon-uniE615" onclick="toggleMenu()"></span></div>
+		<div class="drawer hidden">
+			<a href="/about/politics" ><div class="page-item"> What is politics?</div></a>
+			<a href="/mp/find" ><div class="page-item"> Find an MP</div></a>
+			<a href="/debates/fromDate/today" ><div class="page-item"> Debates</div></a>
+			<a href="/news" ><div class="page-item"> News</div></a>
+			<a href="/user/login" ><div class="page-item login"> Login </div></a>
+		</div>
 	</nav>

@@ -1,13 +1,14 @@
 {%insert _templates:header %endinsert}
 
         <div style="text-align: center;">
-            <h2>Find your MP</h2>
+            <h1><span class="icon-search"></span>Find an MP</h1>
+            <p>Find the MP for the area in which you are in: </p>
             <button type="button" class="button" id="mplocate"><span class="icon-location"></span> Automatically </button>
-            <p>Or using your postcode</p>
+            <p>Find an MP for any UK postcode</p>
             <form id="mp-postcode">
-                <input id="postcode" name="postcode" type="text" placeholder="Postcode" required style="width:auto"/>
+                <input id="postcode" name="postcode" type="text" placeholder="Postcode" required />
             </form>
-            <p>Or by name</p>
+            <p>Or if you already know the MP you're looking for, you can search for their name here</p>
             <form id="mp-name">
                 <input id="mpname" name="name" type="text" placeholder="Full Name" required style="width:auto"/>
             </form>

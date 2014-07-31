@@ -17,6 +17,9 @@ Or Last n Debates: <input type="text" value="{%{numQuery}%}" id="numquery">
     })
 </script>
 
+<div class="content">
+        <h1 class="page-heading"><span class="icon-bubbles"></span>Recent Debates</h1>
+
 {%if empty {?
 
     No Debates found for {%{dateQuery}%}
@@ -31,5 +34,5 @@ Or Last n Debates: <input type="text" value="{%{numQuery}%}" id="numquery">
     {%{debate.extract}%}
     <br>
 }%endfor}
-
+</div>
 {%insert _templates:footer %endinsert}
