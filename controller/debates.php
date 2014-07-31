@@ -53,7 +53,6 @@ class Debates
     public function summary($num = 3)
     {
         $twfy = $this->libraries->load('TWFYAPI', TWFY_KEY);
-        header('Content-Type: application/json');
         $debates = json_decode($twfy->query('getDebates', array("search" => "*", "output" => "js", "type" => 'commons', 'num' => $num)));
         $summaries = array();
         foreach ($debates->rows as $debate) {
@@ -61,11 +60,19 @@ class Debates
                 'time' => $debate->hdate . ' ' . $debate->htime,
                 'speaker' => $debate->speaker->first_name . ' ' . $debate->speaker->last_name,
                 'summary' => $debate->extract,
-                'topic' => $debate->parent->body
+                'topic' => $debate->parent->body,
+                'gid' => $debate->gid
             );
             $summaries[] = $summary;
         }
+        header('Content-Type: application/json');
         echo json_encode($summaries);
     }
 
+    public function full($gid)
+    {
+        $twfy = $this->libraries->load('TWFYAPI', TWFY_KEY);
+        $debates = json_decode($twfy->query('getDebates', array("gid" => $gid, "output" => "js", "type" => 'commons')));
+        var_dump($debates);
+    }
 }

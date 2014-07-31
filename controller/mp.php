@@ -55,7 +55,11 @@ class MP
         $debatesData = json_decode($twfy->query('getDebates', array('person' => $personID, 'num' => 4, 'output' => 'js', 'type' => 'commons')));
         $debates = array();
         foreach ($debatesData->rows as $debate) {
-            $debates[] = array('summary' => $debate->extract, 'topic' => $debate->parent->body, 'date' => $debate->hdate);
+            $debates[] = array(
+                'summary' => $debate->extract,
+                'topic' => $debate->parent->body,
+                'date' => $debate->hdate,
+                'gid' => $debate->gid);
         }
         echo Template::getTemplate('mp:profile')->parse(array(
             'personID' => $personID,

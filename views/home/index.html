@@ -30,7 +30,7 @@
             $('#recent-debates [name=loading]').remove()
             for (i = 0; i < debates.length; i++) {
                 var item = $('<div class="card homepage-card"></div>')
-                item.append('<h3>' + debates[i]['time'] + ' ' + debates[i]['topic'] + '</h3>')
+                item.append('<a href="/debates/full/' + debates[i]['gid'] + '"><h3>' + debates[i]['time'] + ' ' + debates[i]['topic'] + '</h3></a>')
                 item.append('<h4>' + debates[i]['speaker'] + '</h4>')
                 item.append('<p class="summary">' + debates[i]['summary'] + '</p>')
                 $('#recent-debates').append(item)

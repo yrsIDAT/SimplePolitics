@@ -18,9 +18,9 @@
             <h2 class="debates"> Recent Debates </h2>
 {%for debate in debates {
                 <li class="feed-item">
-    				<a href="full debate"><h3>{%{debate.topic}%}</h3></a>
-    				<h4>{%{debate.date}%}</h4>
-    				<p class="summary">"{%{debate.summary}%}"</p>
+                    <a href="/debates/full/{%{debate.gid}%}"><h3>{%{debate.topic}%}</h3></a>
+                    <h4>{%{debate.date}%}</h4>
+                    <p class="summary">"{%{debate.summary}%}"</p>
                 </li>
 } %endfor}
             </ul>
