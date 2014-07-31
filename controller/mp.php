@@ -2,6 +2,13 @@
 
 class MP
 {
+    public function __construct($mapper)
+    {
+        $mapper->map('fromcoords')->setMinParams(1);
+        $mapper->map('frompostcode')->setMinParams(1);
+        $mapper->map('profile')->setMinParams(1);
+    }
+
     public function find($postcode = null)
     {
         echo Template::getTemplate('mp:find')->parse(array(
@@ -29,6 +36,17 @@ class MP
         return $this->frompostcode($json->postcode);
     }
 
+    public function frompostcode($postcode)
+    {
+        $twfy = $this->libraries->load('TWFYAPI', TWFY_KEY);
+        $mp = @json_decode($twfy->query('getMP', array("postcode" => $postcode, "output" => "js")));
+        if ($mp == null || !isset($mp->person_id)) {
+            http_response_code(404);
+            die("Could not find MP from postcode");
+        }
+        echo $mp->person_id;
+    }
+
     public function profile($personID)
     {
         $twfy = $this->libraries->load('TWFYAPI', TWFY_KEY);
@@ -36,7 +54,7 @@ class MP
         $debatesData = json_decode($twfy->query('getDebates', array('person' => $personID, 'num' => 4, 'output' => 'js', 'type' => 'commons')));
         $debates = array();
         foreach ($debatesData->rows as $debate) {
-            $debates[$debate->parent->body] = $debate->extract;
+            $debates[] = array('summary' => $debate->extract, 'topic' => $debate->parent->body);
         }
         echo Template::getTemplate('mp:profile')->parse(array(
             'personID' => $personID,
@@ -62,16 +80,5 @@ class MP
             default:
                 return 'white';
         }
-    }
-
-    public function frompostcode($postcode)
-    {
-        $twfy = $this->libraries->load('TWFYAPI', TWFY_KEY);
-        $mp = @json_decode($twfy->query('getMP', array("postcode" => $postcode, "output" => "js")));
-        if ($mp == null || !isset($mp->person_id)) {
-            http_response_code(404);
-            die("Could not find MP from postcode");
-        }
-        echo $mp->person_id;
     }
 }

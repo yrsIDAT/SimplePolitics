@@ -14,10 +14,10 @@
         <div class="profile-2">
             <h1 class="mp-name">{%{ name }%}</h1>
             <ul class="profile-feed">
-{%for topic, summary in debates {
+{%for debate in debates {
                 <li class="feed-item">
-    				<h3>{%{topic}%}</h3>
-    				<p class="summary">{%{summary}%}</p>
+    				<h3>{%{debate.topic}%}</h3>
+    				<p class="summary">{%{debate.summary}%}</p>
                 </li>
 } %endfor}
             </ul>

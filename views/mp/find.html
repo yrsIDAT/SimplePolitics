@@ -1,5 +1,10 @@
 {%insert _templates:header %endinsert}
-        <script src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+
+        <br><br><br><br><br>
+        <h2 id="status">
+            Finding your local MP...
+        </h2>
+
         <script>
 {%if from_coords {?
             var geoObject = new function () {
@@ -18,31 +23,22 @@
                     return geoObj
                 }
                 this.isReady = function () {
-                    return ready || (ready = (new Date() - limit) > 1000)
+                    return ready || (ready = (new Date() - limit) > 5000)
                 }
             }
             function requestMP() {
                 if (!geoObject.isReady()) { return setTimeout(requestMP, 100) }
                 coords = geoObject.getLocation()['coords']
                 $.ajax('/mp/fromcoords/(' + coords['latitude'] + ',' + coords['longitude'] + ')', {
-                    success: function (mpID) { location.replace('/mp/profile/' + mpID) },
-                    error: function (xhr) { $('#status').html('<span style="color:red">Error: ' + xhr.responseText + '</span>') }
-                })
-            }
 ?} else {?
             function requestMP() {
                 $.ajax('/mp/frompostcode/{%{postcode}%}', {
+?} %endif}
                     success: function (mpID) { location.replace('/mp/profile/' + mpID) },
                     error: function (xhr) { $('#status').html('<span style="color:red">Error: ' + xhr.responseText + '</span>') }
                 })
             }
-?} %endif}
             requestMP()
         </script>
-    </head>
-    <body>
-        <br><br><br><br><br>
-        <h2 id="status">
-            Finding your local MP...
-        </h2>
+
 {%insert _templates:footer %endinsert}

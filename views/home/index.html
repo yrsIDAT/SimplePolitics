@@ -43,7 +43,6 @@
 
         $('form#mp-postcode').on('submit', function(event) {
             event.preventDefault()
-            console.log(event)
             window.location = '/mp/find/' + $('#postcode').val()
         })
 

@@ -1,0 +1,17 @@
+{%var title = Unauthorized Access %endvar}
+
+{%insert _templates:header %endinsert}
+
+<h2>
+(HTTP 403) Go away! The HTTP request sent is not allowed
+</h2>
+
+<h4>
+The error message was:
+</h4>
+
+<h3>
+{%{error_message}%}
+</h3>
+
+{%insert _templates:footer %endinsert}

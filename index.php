@@ -225,7 +225,6 @@ function load($controller_name, $parts)
     $controller->models = new Provider('models', 'model');
     $controller->libraries = new Provider('libraries', 'lib');
     $in_action = array_shift($parts);
-    $controller->suggestedView = "views/{$controller_name}/{$in_action}.html";
     $verb = $_SERVER['REQUEST_METHOD'];
     $map = $mapper->getMappingFor($in_action);
     $action = $map->getAction($verb);
@@ -239,12 +238,19 @@ function load($controller_name, $parts)
     if (method_exists($controller, $action)) {
         if (count($parts) >= $minargs) {
             if ($map->verbIsAllowed($verb)) {
-                call_user_func_array(array($controller, $action), $parts);
+                @call_user_func_array(array($controller, $action), $parts);
+                if (($error = error_get_last()) !== null) {
+                    if ($error['type'] === E_WARNING && strpos($error['message'], 'cannot access private method') !== false) {
+                        showError(403, "Inaccessible function {$in_action}");
+                    } else {
+                        trigger_error($error['message'], E_USER_WARNING);
+                    }
+                }
             } else {
                 showError(403, "The HTTP verb '{$verb}' is not allowed for {$action}");
             }
         } else {
-            showError(400, "Not enough arguments given to {$action}");
+            showError(400, "Not enough arguments given to {$action} (expecting {$minargs}, got " . count($parts) . ")");
         }
     } else {
         $notFoundAction = $mapper->get404();

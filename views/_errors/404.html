@@ -1,0 +1,17 @@
+{%var title = Not Found %endvar}
+
+{%insert _templates:header %endinsert}
+
+<h2>
+(HTTP 404) The page you requested could not be found
+</h2>
+
+<h4>
+The error message was:
+</h4>
+
+<h3>
+{%{error_message}%}
+</h3>
+
+{%insert _templates:footer %endinsert}
