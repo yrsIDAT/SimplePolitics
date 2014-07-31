@@ -1,23 +1,26 @@
 {%insert _templates:header %endinsert}
     
     <div class="profile-cover"></div>
-    <div class="profile">
+    <div class="profile content">
     	<div class="profile-1">
             <img class="profile-image" src="http://www.theyworkforyou.com{%{ imageURL }%}" width="{%{ imageWidth }%}" height="{%{ imageHeight }%}" style="border-color:{%{ partyColor }%}"></img>
             <ul class="profile-info">
                 <li class="constituency"> MP for {%{ location }%}</li>
                 <button type="button" class="button">+ Follow (NYI)</button>
-                <a href="/mp/contact/{%{ name }%}"><button type="button" id="profile-mail" class="button"><span class="icon-mail2"></span>Message </button>
-    </a>
+                <a href="/mp/contact/{%{ name }%}"><button type="button" id="profile-contact" class="button"><span class="icon-mail3"></span>Contact</button></a>
+                <a href="https://twitter.com/search?q={%{ name }%}"><button type="button" id="profile-twitter" class="button"><span class="icon-twitter"></span>Twitter</button></a>
+
             </ul>
         </div>
         <div class="profile-2">
             <h1 class="mp-name">{%{ name }%}</h1>
             <ul class="profile-feed">
+            <h2 class="debates"> Recent Debates </h2>
 {%for debate in debates {
                 <li class="feed-item">
-    				<h3>{%{debate.topic}%}</h3>
-    				<p class="summary">{%{debate.summary}%}</p>
+    				<a href="full debate"><h3>{%{debate.topic}%}</h3></a>
+    				<h4>{%{debate.date}%}</h4>
+    				<p class="summary">"{%{debate.summary}%}"</p>
                 </li>
 } %endfor}
             </ul>

@@ -3,15 +3,14 @@
 		<h1 class="cover-type">Politics made simple.</h1>
 	</div>
 
-	<div class="content">
-		<div class="boxes">
-			<div class="box-3">
+	<div class="content homepage-boxes">
+			<div class="box box-3">
 				<div class="roundimage" id="parliament-image"></div>
 				<h2>What is politics?</h2>
 				<p>Middle aged, heterosexual, white men arguing about young & old, lesbian, black women.</p>
 				<p>Also dolor ipsum sit amet</p>
 			</div>
-			<div class="box-3" style="text-align: center">
+			<div class="box box-3" style="text-align: center">
 				<div class="roundimage" id="mp-image"></div>
 				<h2>Find your MP</h2>
             	<button type="button" class="button" id="mplocate"><span class="icon-location"></span> Automatically </button>
@@ -20,20 +19,17 @@
 				<input id="postcode" name="postcode" type="text" placeholder="Postcode" required/>
 				</form>
 			</div>
-	
-	
-			<div class="box-3" id="recent-debates">
+			<div class="box box-3" id="recent-debates">
 				<div class="roundimage" id="debate-image"></div>
 				<h2>Recent debates</h2>
                 <h3 name="loading">Loading...</h3>
 			</div>
-		</div>
 	</div>
 	<script>
         $.get('/debates/summary', function(debates) {
             $('#recent-debates [name=loading]').remove()
             for (i = 0; i < debates.length; i++) {
-                var item = $('<div class="box-item"></div>')
+                var item = $('<div class="card homepage-card"></div>')
                 item.append('<h3>' + debates[i]['time'] + ' ' + debates[i]['topic'] + '</h3>')
                 item.append('<h4>' + debates[i]['speaker'] + '</h4>')
                 item.append('<p class="summary">' + debates[i]['summary'] + '</p>')
