@@ -22,21 +22,14 @@
             }%endfor(1)}
             <div class="question">
                 <p>Want to see what others think about this issue?</p>
-                <div class="button show-results poll-choice">Show results</div>
+                <div class="answer-cont"><div class="button show-results poll-choice pollchoice" id="showresults">Show results</div></div>
             </div>
     </div>
 </div>
 
-<div class="reading" id="poll-results">
-    <h2 class="debates">Results</h2>
-    {%for(1) qNum, entry in pollResults {
-        <div class="poll-result">
-        <p class="result-question">{%{entry.question}%}</p>
-        {%for(2) option in entry.options {
-            <p>{%{option.choice}%} = {%{option.count}%}</p>
-        }%endfor(2)}
-        </div>
-    }%endfor(1)}
+<div class="poll-results">
+    <div class="reading" id="poll-results" style="display: none;">
+    </div>
 </div>
 <script>
     $('.pollchoice').each(function(i, element) {
@@ -50,6 +43,25 @@
                 e.unbind('click')
                 el.append('<div style="color:green">' + rText + '</div>')
             })
+        })
+    })
+
+    $('#showresults').click(function() {
+        $.get('/debates/pollResults/{%{id}%}', function(results) {
+            $("#poll-results").css("display", "block");
+            $(".poll").css("display", "none");
+            var div = $('#poll-results')
+            div.html('<h2 class="debates">Results</h2>')
+            for (qNum = 0; qNum < results.length; qNum++) {
+                entry = results[qNum]
+                var resDiv = $('<div class="poll-result"></div>')
+                resDiv.append('<p class="result-question">' + entry.question + '</p>')
+                for (i = 0; i < entry.options.length; i++) {
+                    option = entry.options[i]
+                    resDiv.append('<p>' + option.choice + ' = ' + option.count + '</p>')
+                }
+                div.append(resDiv)
+            }
         })
     })
 </script>
