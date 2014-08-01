@@ -22,14 +22,14 @@ class Debates
     private function listDebates(stdClass $debates, array $tplData = array())
     {
         $tplData = array_merge(array('numQuery' => 5, 'dateQuery' => 'today'), $tplData);
-        $debates = isset($debates->rows) ? $debates->rows : array();
+        $debates = isset($debates->rows) && is_array($debates->rows) ? $debates->rows : array();
         foreach ($debates as &$debate) {
             $debate->gid = $this->getDebateGid($debate->listurl);
             $debate->date = date('l, j F H:m', strtotime($debate->hdate . ' ' . $debate->htime));
         }
         echo Template::getTemplate('debates:list', $tplData)->parse(array(
             'debates' => $debates,
-            'empty' => !isset($debates->rows) || count($debates->rows) === 0
+            'empty' => count($debates) === 0,
         ));
     }
 
