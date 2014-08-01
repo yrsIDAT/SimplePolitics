@@ -37,6 +37,13 @@ h4 {
     padding: 0;
     color: #505050;
 }
+h5 {
+    font-family: "opensansbold", sans-serif;
+    text-transform: uppercase;
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+}
 
 p {
     margin: 5px 0;
@@ -46,12 +53,24 @@ p {
 a {
     text-decoration: none;
     color: #000;
+    border-bottom: dashed 1px black;
+}
+
+a:hover {
+    border-bottom: dotted 1px black;
 }
 
 .content {
     max-width: 1300px;
     width: 95%;
     margin: 0 auto;
+}
+
+.reading {
+    width: 60%;
+    max-width: 700px;
+    margin: 0 auto;
+    overflow: auto;
 }
 
 .button {
@@ -88,6 +107,12 @@ a {
     background: #F1F1F1;
     border-bottom: 3px solid #d4d4d4;
     text-align: left;
+}
+.icon-newspaper, .icon-bubbles, .icon-search, .icon-file {
+    font-size: 50px;
+    margin-right: 15px;
+    position: relative;
+    top: 3px;
 }
 
 /*
@@ -132,6 +157,10 @@ a {
     border-bottom: 3px solid #022e48;
     z-index: 9999;
     box-sizing: border-box;
+}
+
+.menu a, .menu a:hover {
+    border-bottom: none;
 }
 
 .page-item {
@@ -292,13 +321,14 @@ input:focus, button:focus {
 .profile-cover {
     background-image: url(/img/frontcover.jpg);
     width: 100%;
-    height: 200px;
+    height: 300px;
     background-size: cover;
     background-position: 75% 50%;
     display: table;
     background-attachment: fixed;
+    position: relative;
+    overflow: hidden;
 }
-
 .profile-top {
     margin: -100px auto 0 auto;
     padding: 0 50px;
@@ -314,8 +344,7 @@ input:focus, button:focus {
     border: 10px solid #fff;
     overflow: hidden;
     display: inline-table;
-    vertical-align: center;
-
+    background-size: cover;
 }
 
 .mp-name {
@@ -369,6 +398,8 @@ input:focus, button:focus {
     float: left;
     width: 195px;
     margin: -100px 50px 0px;
+    position: relative;
+    z-index: 2;
 }
 
 .profile-2 {
@@ -392,11 +423,7 @@ input:focus, button:focus {
     font-size: 20px;
 }
 
-h2.debates {
-    text-align: left;
-    text-transform: uppercase;
-    border-bottom: 1px solid #696969;
-}
+
 
 .profile-feed {
     max-width: 700px;
@@ -407,27 +434,101 @@ h2.debates {
     margin: 0 auto;
     max-width: 700px;
 }
-h2.debates.debate-full {
+.debates.debate-full {
     margin: 20px auto;
 }
 .debate-full:nth-child(2), .debate-full:nth-child(3) {
     font-family: "opensansbold", sans-serif;
 }
+
+/*
+ Debates
+*/
+
+.find-debates h2, .debates-list h2 {
+    text-align: left;
+    margin-top: 0;
+}
+.debate-form {
+    margin: 10px 0 20px 0;
+    height: 100%;
+    overflow: auto;
+}
+#datequery, #numquery {
+    text-align: center;
+    border: 1px solid #DBDBDB;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    padding: 7px;
+    font-size: 14px;
+    font-family: "opensansregualr", sans-serif;
+    margin: 0;
+    min-height: 22px;
+    float: left;
+    width: 150px;
+}
+
+.form-button {
+    padding: 9px 20px;
+    margin: 0;
+    border-radius: 0px 8px 8px 0;
+    color: #FFF;
+    font-family: "opensansbold", sans-serif;
+    border: 0;
+    background: #0FC281;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 100%;
+    box-sizing: border-box;
+    height: 38px;
+    display: inline-block;
+    float: left;
+}
+
+.form-button:hover {
+    background: #0FB87A;
+}
+
+.form-button:active {
+    background: #0FA971;
+    padding: 8px 20px 7px 20px;
+    border-top: 2px solid #0D6F00;
+}
+
+.find-debates {
+    min-width: 250px;
+    display: inline-block;
+    float: left;
+}
+.debates-list {
+    display: inline-block;
+    float: left;
+    width: calc(100% - 250px);
+}
+.debates-list .card {
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
 /*
   News
 */
-.icon-newspaper, .icon-bubbles, .icon-search {
-    font-size: 50px;
-    margin-right: 15px;
-    position: relative;
-    top: 3px;
-}
+
+
 .news-item {
     width: 49%;
     margin-top: 20px;
 }
 
-.news-item h2, .news-item p {
+.news-item h3 {
+    margin-top: 10px;
+}
+
+.news-item h3, .news-item h4, .news-item p {
     text-align: left;
     padding: 0 10px;
 }
@@ -441,40 +542,92 @@ h2.debates.debate-full {
 }
 .continuereading {
     float: right;
-    padding: 10px;
+    margin: 10px;
 }
 /*
   Polls
 */
 .poll {
     width: 100%;
-    background-color: #A4D3C6;
-    padding: 1px 20px 20px 20px;
+    background-color: #FAFAFA;
+    padding: 10px;
     box-sizing: border-box;
     font-family:"oxygenregular", sans-serif;
+}
+.answer-cont {
+    display: table-row;
+    vertical-align: middle;
 }
 .pollchoice {
     max-width: 300px;
     text-align: center;
 }
 
+.question p:first-child {
+    min-height: 60px;
+}
+
+.debates {
+    text-align: left;
+    text-transform: uppercase;
+    border-bottom: 1px solid #696969;
+}
+
+.show-results {
+    width: 40%;
+    text-align: left;
+}
+
+.question {
+    padding: 15px;
+    float: left;
+    max-width: 255px;
+    display: table;
+    min-height: 321px;
+    box-sizing: border-box;
+    margin: 5px;
+    text-align: center;
+    background-color: #F7F7F7;
+    border: 1px solid #E4E4E4;
+}
+
+.question p {
+    text-align: center;
+    margin: 5px 0;
+    font-family: "oxygenbold", sans-serif;
+}
+.question p:first-child {
+    min-height: 60px;
+}
+
+.result-question {
+    text-align: left;
+    margin: 5px 0;
+}
+.answer-cont {
+    display: table-row;
+    vertical-align: middle;
+}
+
+
 .choice-red:active , .choice-orange:active, .choice-yellow:active { border-color: transparent; }
 
 .choice-green:hover { background: #0DA56D; }
 
 .choice-red { background: #CF3C3C; border-bottom: 3px solid #6B1A1A; }
-.choice-red:hover { background: #A23131; }
+.choice-red:hover { background: #A23131; border-bottom: 3px solid #6B1A1A; }
 .choice-red:active { background: #802727; }
 
 .choice-orange { background: #CF883C; border-bottom: 3px solid #805323; }
-.choice-orange:hover { background: #B87732; }
+.choice-orange:hover { background: #B87732; border-bottom: 3px solid #805323; }
 .choice-orange:active { background: #A56C30; }
 
 .choice-yellow { background: #D6D635; border-bottom: 3px solid #888809; }
-.choice-yellow:hover { background: #C0C00A; }
+.choice-yellow:hover { background: #C0C00A; border-bottom: 3px solid #888809; }
 .choice-yellow:active { background: #99990D; }
 
 .pollchoice.disabled, .pollchoice.disabled:hover, .pollchoice.disabled:active { background: gray; color: darkgray; border-color: transparent; }
+
 
 /*
   Footer

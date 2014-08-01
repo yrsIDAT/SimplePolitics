@@ -4,12 +4,12 @@
 </div>
     <div class="profile content">
     	<div class="profile-1">
-            <img class="profile-image" src="http://www.theyworkforyou.com{%{image.src}%}" width="{%{image.width}%}" height="{%{image.height}%}" style="border-color:{%{ partyColor }%}"></img>
+            <img class="profile-image" style="background-image:url(http://www.theyworkforyou.com{%{image.src}%}); border-color:{%{ partyColor }%};"></img>
             <ul class="profile-info">
                 <li class="constituency"> MP for {%{ location }%}</li>
                 <button type="button" class="button">+ Follow (NYI)</button>
                 <a href="/mp/contact/{%{ name }%}"><button type="button" id="profile-contact" class="button"><span class="icon-mail3"></span>Contact</button></a>
-                <a href="https://twitter.com/search?q={%{ name }%}"><button type="button" id="profile-twitter" class="button"><span class="icon-twitter"></span>Twitter</button></a>
+                <a href="https://twitter.com/search?q={%{ name }%}&mode=users"><button type="button" id="profile-twitter" class="button"><span class="icon-twitter"></span>Twitter</button></a>
 
             </ul>
         </div>

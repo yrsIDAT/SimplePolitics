@@ -6,8 +6,8 @@
 		<div class="boxes" id="masonry">
 {%for item in news {
     		<div class="card news-item">
-                <h2><a href="{%{ item.link }%}">{%{ item.title }%}</a></h2>
-                <p>{%{ item.pubDate }%}</p>
+                <h3><a href="{%{ item.link }%}">{%{ item.title }%}</a></h3>
+                <h4>{%{ item.pubDate }%}</h4>
                 <p>{%{ item.description }%}</p>
             </div>
 } %endfor}
