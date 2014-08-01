@@ -52,7 +52,7 @@ class MP
         $mp = @json_decode($twfy->query('getMP', array("postcode" => $postcode, "output" => "js")));
         if ($mp == null || !isset($mp->person_id)) {
             http_response_code(404);
-            die("Could not find MP from postcode");
+            die("Could not find MP from postcode ($postcode)");
         }
         echo $mp->person_id;
     }
@@ -74,9 +74,7 @@ class MP
             'personID' => $personID,
             'location' => $mp->constituency,
             'name' => $mp->full_name,
-            'imageURL' => $mp->image,
-            'imageWidth' => $mp->image_width,
-            'imageHeight' => $mp->image_height,
+            'image' => array('src' => $mp->image, 'width' => $mp->image_width, 'height' => $mp->image_height),
             'debates' => $debates,
             'partyColor' => $this->getColorFromParty($mp->party)
         ));

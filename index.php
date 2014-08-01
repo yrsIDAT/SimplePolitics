@@ -243,7 +243,7 @@ function load($controller_name, $parts)
                     if ($error['type'] === E_WARNING && strpos($error['message'], 'cannot access private method') !== false) {
                         showError(403, "Inaccessible function {$in_action}");
                     } else {
-                        trigger_error($error['message'], E_USER_WARNING);
+                        trigger_error($error['message'] . " in {$error['file']} on line {$error['line']}", E_USER_WARNING);
                     }
                 }
             } else {
