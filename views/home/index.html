@@ -6,7 +6,7 @@
 	<div class="content homepage-boxes">
 			<div class="box box-3">
 				<div class="roundimage" id="parliament-image"></div>
-				<h2>Welcome to Politics made simple.</h2>
+				<h2>Welcome to Politics Made Simple</h2>
 				<p>This site is designed to explain UK politics in a simple way in order to get more people involved in it. Here you can learn about politics, find out who your local MP is, what debates have been taking place in Parliament recently, and also take part in polls as a simple and quick way to voice your opinions on the issues that affect you most.</p>
 			</div>
 			<div class="box box-3" style="text-align: center">
@@ -29,7 +29,8 @@
             $('#recent-debates [name=loading]').remove()
             for (i = 0; i < debates.length; i++) {
                 var item = $('<div class="card homepage-card"></div>')
-                item.append('<a href="/debates/full/' + debates[i]['gid'] + '"><h3>' + debates[i]['date'] + ' ' + debates[i]['topic'] + '</h3></a>')
+                item.append('<a href="/debates/full/' + debates[i]['gid'] + '"><h3>' + debates[i]['topic'] + '</h3></a>')
+                item.append('<h4>' + debates[i]['date'] + '</h4>')
                 item.append('<h4>' + debates[i]['speaker'] + '</h4>')
                 item.append('<p class="summary">' + debates[i]['summary'] + '</p>')
                 $('#recent-debates').append(item)

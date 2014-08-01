@@ -27,8 +27,8 @@
     </div>
 </div>
 
-<div class="poll-results">
-    <div class="reading" id="poll-results" style="display: none;">
+<div class="poll-results" style="display: none;">
+    <div class="reading" id="poll-results" >
     </div>
 </div>
 <script>
@@ -48,7 +48,7 @@
 
     $('#showresults').click(function() {
         $.get('/debates/pollResults/{%{id}%}', function(results) {
-            $("#poll-results").css("display", "block");
+            $(".poll-results").css("display", "block");
             $(".poll").css("display", "none");
             var div = $('#poll-results')
             div.html('<h2 class="debates">Results</h2>')

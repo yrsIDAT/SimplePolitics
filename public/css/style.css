@@ -547,11 +547,13 @@ input:focus, button:focus {
 /*
   Polls
 */
-.poll {
+.poll, .poll-results {
     width: 100%;
     background-color: #FAFAFA;
     padding: 10px;
     box-sizing: border-box;
+    border-top: 1px solid #A2A2A2;
+    border-bottom: 1px solid #A2A2A2;
     font-family:"oxygenregular", sans-serif;
 }
 .answer-cont {
@@ -573,12 +575,8 @@ input:focus, button:focus {
     border-bottom: 1px solid #696969;
 }
 
-.show-results {
-    width: 40%;
-    text-align: left;
-}
 
-.question {
+.question, .poll-result {
     padding: 15px;
     float: left;
     max-width: 255px;
@@ -591,19 +589,18 @@ input:focus, button:focus {
     border: 1px solid #E4E4E4;
 }
 
-.question p {
+.question p, .result-question {
     text-align: center;
-    margin: 5px 0;
+    margin: 5px 0 !important;
     font-family: "oxygenbold", sans-serif;
+}
+.poll-result p {
+    margin: 28px 0;
 }
 .question p:first-child {
     min-height: 60px;
 }
 
-.result-question {
-    text-align: left;
-    margin: 5px 0;
-}
 .answer-cont {
     display: table-row;
     vertical-align: middle;
