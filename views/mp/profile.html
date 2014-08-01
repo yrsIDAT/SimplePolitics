@@ -1,6 +1,7 @@
 {%insert _templates:header %endinsert}
     
-    <div class="profile-cover"></div>
+    <div class="profile-cover"><iframe class="profile-cover" style="z-index: 0;" src="https://maps.google.co.uk/?output=embed&amp;q={%{area}%}" scroll=no></iframe> 
+</div>
     <div class="profile content">
     	<div class="profile-1">
             <img class="profile-image" src="http://www.theyworkforyou.com{%{image.src}%}" width="{%{image.width}%}" height="{%{image.height}%}" style="border-color:{%{ partyColor }%}"></img>

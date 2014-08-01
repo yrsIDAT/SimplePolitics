@@ -61,6 +61,19 @@ class MP
     {
         $twfy = $this->libraries->load('TWFYAPI', TWFY_KEY);
         $mp = json_decode($twfy->query('getMP', array('id' => $personID, 'output' => 'js')))[0];
+
+        // Library doesn't have support for the function
+        $ch = curl_init("http://www.theyworkforyou.com/api/getBoundary?key=" . TWFY_KEY . "&name=" . urlencode($mp->constituency) . "&output=xml");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+        $response = curl_exec($ch);
+        $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+        curl_close($ch);
+        $header = substr($response, 0, $header_size);
+        $h = 'Location: ';
+        $start = strpos($header, $h) + strlen($h);
+        $end = strpos($header, "\r\n", $start);
+        $area = substr($header, $start, $end - $start);
         $debatesData = json_decode($twfy->query('getDebates', array('person' => $personID, 'num' => 4, 'output' => 'js', 'type' => 'commons')));
         $debates = array();
         foreach ($debatesData->rows as $debate) {
@@ -76,7 +89,8 @@ class MP
             'name' => $mp->full_name,
             'image' => array('src' => $mp->image, 'width' => $mp->image_width, 'height' => $mp->image_height),
             'debates' => $debates,
-            'partyColor' => $this->getColorFromParty($mp->party)
+            'partyColor' => $this->getColorFromParty($mp->party),
+            'area' => $area
         ));
     }
 
