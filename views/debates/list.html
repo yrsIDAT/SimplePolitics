@@ -1,11 +1,12 @@
 {%insert _templates:header %endinsert}
-
-<div style="width:auto;margin-bottom:10px;width:50%">
-<h4>Find Debates</h4>
-By Date: <input type="text" value="{%{dateQuery}%}" id="datequery"> <button class="button" style="width:auto" id="finddate">Find</button>
-<br>
-Or Last n Debates: <input type="text" value="{%{numQuery}%}" id="numquery">
-<button class="button" style="width:auto" id="findnum">Find</button>
+<div class="content">
+        <h1 class="page-heading"><span class="icon-bubbles"></span>Recent Debates</h1>
+<div class="find-debates">
+    <h2>Find Debates</h2>
+    <h5>By Date:</h5>
+    <div class="debate-form"><input type="date" value="{%{dateQuery}%}" id="datequery"> <button class="form-button" style="width:auto" id="finddate">Find</button></div>
+    <h5>Or Last n Debates: </h5>
+    <div class="debate-form"><input type="number" value="{%{numQuery}%}" id="numquery"><button class="form-button" style="width:auto" id="findnum">Find</button></div>
 </div>
 <script>
     $('#finddate').click(function(){
@@ -16,25 +17,22 @@ Or Last n Debates: <input type="text" value="{%{numQuery}%}" id="numquery">
         window.location = '/debates/last/' + $('#numquery').val()
     })
 </script>
-
-<div class="content">
-        <h1 class="page-heading"><span class="icon-bubbles"></span>Recent Debates</h1>
-
+<div class="debates-list">
 {%if empty {?
 
-    No Debates found for {%{dateQuery}%}
+    <h2>No Debates found for {%{dateQuery}%} </h2>
 
 ?}%endif}
 
 {%for debate in debates {
-    <a href="/debates/full/{%{debate.gid}%}" style="text-decoration:underline;color:blue">{%{debate.parent.body}%}</a>
-    <br>
-    {%{debate.date}%}
-    <br>
-    {%{debate.speaker.first_name}%} {%{debate.speaker.last_name}%}
-    <br>
-    {%{debate.extract}%}
-    <br>
+    <div class="card">
+        <h3><a href="/debates/full/{%{debate.gid}%}">{%{debate.parent.body}%}</a></h3>
+        <h4>{%{debate.hdate}%} {%{debate.htime}%}</h4>
+        <h4>{%{debate.speaker.first_name}%} {%{debate.speaker.last_name}%}</h4>
+        <p>{%{debate.extract}%}</p>
+    </div>
 }%endfor}
+
+</div>
 </div>
 {%insert _templates:footer %endinsert}

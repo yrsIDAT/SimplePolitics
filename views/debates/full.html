@@ -8,14 +8,35 @@
 </div>
 
 <div class="poll">
-    <h2>Poll</h2>
-    <a href="/debates/pollResults/{%{id}%}"><h3 style="text-align:center">Show results</h3></a>
-    {%for(1) qNum, entry in questions {
-    <div style="text-align:center">{%{entry.question}%}</div>
-    {%for(2) option in entry.options {
-    <div class="button pollchoice choice-{%{option.color}%}" question="{%{qNum}%}" optnum="{%{option.choice}%}">{%{option.text}%}</div>
-    }%endfor(2)}
-}%endfor(1)}
+    <div class="reading">
+        <h2 class="debates">Poll</h2>
+            {%for(1) qNum, entry in questions {
+            <div class="question">
+                <p>{%{entry.question}%}</p>
+                <div class="answer-cont">
+               {%for(2) option in entry.options {
+                <div class="button pollchoice choice-{%{option.color}%}" question="{%{qNum}%}" optnum="{%{option.choice}%}">{%{option.text}%}</div>
+                }%endfor(2)}
+                </div>
+            </div>
+            }%endfor(1)}
+            <div class="question">
+                <p>Want to see what others think about this issue?</p>
+                <div class="button show-results poll-choice">Show results</div>
+            </div>
+    </div>
+</div>
+
+<div class="reading" id="poll-results">
+    <h2 class="debates">Results</h2>
+    {%for(1) qNum, entry in pollResults {
+        <div class="poll-result">
+        <p class="result-question">{%{entry.question}%}</p>
+        {%for(2) option in entry.options {
+            <p>{%{option.choice}%} = {%{option.count}%}</p>
+        }%endfor(2)}
+        </div>
+    }%endfor(1)}
 </div>
 <script>
     $('.pollchoice').each(function(i, element) {
