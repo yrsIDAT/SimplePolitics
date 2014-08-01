@@ -25,6 +25,7 @@ class Debates
         $debates = isset($debates->rows) ? $debates->rows : array();
         foreach ($debates as &$debate) {
             $debate->gid = $this->getDebateGid($debate->listurl);
+            $debate->hdate = date('l, j F', strtotime($debate->hdate));
         }
         echo Template::getTemplate('debates:list', $tplData)->parse(array(
             'debates' => $debates,
@@ -39,7 +40,7 @@ class Debates
         $summaries = array();
         foreach ($debates->rows as $debate) {
             $summary = array(
-                'time' => $debate->hdate . ' ' . $debate->htime,
+                'time' => date('l, j F', strtotime($debate->hdate)) . ' ' . $debate->htime,
                 'speaker' => $debate->speaker->first_name . ' ' . $debate->speaker->last_name,
                 'summary' => $debate->extract,
                 'topic' => $debate->parent->body,
