@@ -8,7 +8,7 @@ class News
         $reader->load("http://www.theguardian.com/politics/rss");
         $items = $reader->getItems();
         foreach ($items as &$item) {
-            $item['pubDate'] = date('l, j F H:m:s', strtotime($item['pubDate']));
+            $item['pubDate'] = date('l, j F H:m', strtotime($item['pubDate']));
         }
         echo Template::getTemplate('news:news')->parse(array('news' => $items));
     }

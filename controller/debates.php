@@ -25,7 +25,7 @@ class Debates
         $debates = isset($debates->rows) ? $debates->rows : array();
         foreach ($debates as &$debate) {
             $debate->gid = $this->getDebateGid($debate->listurl);
-            $debate->hdate = date('l, j F', strtotime($debate->hdate));
+            $debate->date = date('l, j F H:m', strtotime($debate->hdate . ' ' . $debate->htime));
         }
         echo Template::getTemplate('debates:list', $tplData)->parse(array(
             'debates' => $debates,
@@ -40,7 +40,7 @@ class Debates
         $summaries = array();
         foreach ($debates->rows as $debate) {
             $summary = array(
-                'time' => date('l, j F', strtotime($debate->hdate)) . ' ' . $debate->htime,
+                'date' => date('l, j F H:m', strtotime($debate->hdate . ' ' . $debate->htime)),
                 'speaker' => $debate->speaker->first_name . ' ' . $debate->speaker->last_name,
                 'summary' => $debate->extract,
                 'topic' => $debate->parent->body,
@@ -64,6 +64,7 @@ class Debates
         $debate = json_decode($twfy->query('getDebates', array("gid" => $gid, "output" => "js", "type" => 'commons')));
         foreach ($debate as &$row) {
             $row->body = preg_replace('#a href=("|\')/mp/\?m=(\d+)\1#', 'a href=\1/mp/redirectProfile/\2\1', $row->body);
+            $row->date = date('l, j F H:m', strtotime($row->hdate . ' ' . $row->htime));
         }
         $poll = $this->models->load('PollModel');
         $poll->create($gid);

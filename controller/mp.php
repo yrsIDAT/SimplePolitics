@@ -85,7 +85,7 @@ class MP
             $debates[] = array(
                 'summary' => $debate->extract,
                 'topic' => $debate->parent->body,
-                'date' => date('l, j F', strtotime($debate->hdate)) . ' ' . $debate->htime,
+                'date' => date('l, j F H:m', strtotime($debate->hdate . ' ' . $debate->htime)),
                 'gid' => $this->getDebateGid($debate->listurl));
         }
         echo Template::getTemplate('mp:profile')->parse(array(
