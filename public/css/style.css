@@ -74,7 +74,7 @@ a {
 }
 
 .button:hover {
-    background: #0FB87A;;
+    background: #0FB87A;
     border-bottom: 3px solid #0D6F00;
 }
 
@@ -453,35 +453,28 @@ h2.debates.debate-full {
     box-sizing: border-box;
     font-family:"oxygenregular", sans-serif;
 }
-#yes, #no, #dontknow {
+.pollchoice {
     max-width: 300px;
     text-align: center;
 }
-#no {
-    background: #CF3C3C;
-    border-bottom: 3px solid #6B1A1A;
-}
-#no:hover {
-    background: #A23131;
-}
 
-#no:active {
-    border-color: transparent;
-    background: #802727;
-}
-#dontknow {
-    background: #CF883C;
-    border-bottom: 3px solid #805323;
-}
-#dontknow:hover {
-    background: #B87732;
-}
+.choice-red:active , .choice-orange:active, .choice-yellow:active { border-color: transparent; }
 
-#dontknow:active {
-    border-color: transparent;
-    background: #A56C30;
-}
+.choice-green:hover { background: #0DA56D; }
 
+.choice-red { background: #CF3C3C; border-bottom: 3px solid #6B1A1A; }
+.choice-red:hover { background: #A23131; }
+.choice-red:active { background: #802727; }
+
+.choice-orange { background: #CF883C; border-bottom: 3px solid #805323; }
+.choice-orange:hover { background: #B87732; }
+.choice-orange:active { background: #A56C30; }
+
+.choice-yellow { background: #D6D635; border-bottom: 3px solid #888809; }
+.choice-yellow:hover { background: #C0C00A; }
+.choice-yellow:active { background: #99990D; }
+
+.pollchoice.disabled, .pollchoice.disabled:hover, .pollchoice.disabled:active { background: gray; color: darkgray; border-color: transparent; }
 
 /*
   Footer

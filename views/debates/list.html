@@ -27,6 +27,8 @@ Or Last n Debates: <input type="text" value="{%{numQuery}%}" id="numquery">
 ?}%endif}
 
 {%for debate in debates {
+    <a href="/debates/full/{%{debate.gid}%}" style="text-decoration:underline;color:blue">{%{debate.parent.body}%}</a>
+    <br>
     {%{debate.hdate}%} {%{debate.htime}%}
     <br>
     {%{debate.speaker.first_name}%} {%{debate.speaker.last_name}%}

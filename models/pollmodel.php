@@ -2,21 +2,32 @@
 
 class PollModel
 {
-    private $db;
-
     public function __construct(MySQL $db)
     {
-        $this->db = $db;
     }
 
-    public function getPollData($id)
+    private function runPollCmd()
     {
-        $poll = $this->db->select('val_id, value, count', 'debate_poll')->where('id', '=', $id)->_();
-        return $poll;
+        return exec("python PollQuestions.py " . implode(' ', func_get_args()));
     }
 
-    public function voteFor($id, $valID)
+    public function vote($id, $question, $choice)
     {
-        return $this->db->exec("UPDATE `debate_poll` SET `count` = `count` + 1 WHERE `id` = $id AND `val_id` = $valID");
+        return $this->runPollCmd('do_vote', $id, $question, $choice) === 'Success';
+    }
+
+    public function getResults($id)
+    {
+        return json_decode($this->runPollCmd('get_results', $id), true);
+    }
+
+    public function create($id)
+    {
+        return $this->runPollCmd('create', $id) === 'Success';
+    }
+
+    public function getQuestions()
+    {
+        return json_decode($this->runPollCmd('get_questions'), true);
     }
 }

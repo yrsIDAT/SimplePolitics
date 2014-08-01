@@ -2,38 +2,6 @@
 
 class Debates
 {
-    public function __construct($mapper)
-    {
-        $mapper->map('poll')->setMinParams(1);
-        $mapper->map('poll')->when('POSTing')->onto('postPoll');
-        $mapper->map('postPoll')->remove();
-    }
-
-    public function poll($pollID)
-    {
-        $poll = $this->models->load('PollModel');
-        $data = $poll->getPollData($pollID);
-        foreach ($data as $poll) {
-            echo $poll['value'] . ' = ' . $poll['count'] . " <a href=\"/debates/pollVote/{$pollID}/{$poll['val_id']}\">Vote</a><br>";
-        }
-    }
-
-    public function postPoll($pollID)
-    {
-    
-    }
-
-    public function pollVote($pollID, $choiceID)
-    {
-        $poll = $this->models->load('PollModel');
-        if ($poll->voteFor($pollID, $choiceID)) {
-            // Success page
-            header("Location: /debates/poll/$pollID");
-        } else {
-            // Could not vote
-        }
-    }
-
     public function fromDate($date)
     {
         if ($date === 'today') {
@@ -54,8 +22,12 @@ class Debates
     private function listDebates(stdClass $debates, array $tplData = array())
     {
         $tplData = array_merge(array('numQuery' => 5, 'dateQuery' => 'today'), $tplData);
+        $debates = isset($debates->rows) ? $debates->rows : array();
+        foreach ($debates as &$debate) {
+            $debate->gid = $this->getDebateGid($debate->listurl);
+        }
         echo Template::getTemplate('debates:list', $tplData)->parse(array(
-            'debates' => isset($debates->rows) ? $debates->rows : array(),
+            'debates' => $debates,
             'empty' => !isset($debates->rows) || count($debates->rows) === 0
         ));
     }
@@ -89,6 +61,54 @@ class Debates
     {
         $twfy = $this->libraries->load('TWFYAPI', TWFY_KEY);
         $debate = json_decode($twfy->query('getDebates', array("gid" => $gid, "output" => "js", "type" => 'commons')));
-        echo Template::getTemplate('debates:full')->parse(array('debate' => $debate));
+        $poll = $this->models->load('PollModel');
+        $poll->create($gid);
+        $questions = $poll->getQuestions();
+        $nQuestions = array();
+        foreach ($questions as $q => $opts) {
+            list($num, $q) = explode(':', $q);
+            $options = array();
+            foreach ($opts as $cNum => $opt) {
+                list($color, $text) = explode(':', $opt);
+                $options[] = array('text' => $text, 'color' => $color, 'choice' => $cNum);
+            }
+            $nQuestions[((int) $num) - 1] = array('question' => $q, 'options' => $options);
+        }
+        ksort($nQuestions);
+        echo Template::getTemplate('debates:full')->parse(array('debate' => $debate, 'questions' => $nQuestions, 'id' => $gid));
+    }
+
+    public function pollVote($debateId, $question, $choice)
+    {
+        if ($this->models->load('PollModel')->vote($debateId, $question, $choice)) {
+            echo 'Vote successful';
+        } else {
+            http_response_code(500);
+            echo 'Unable to submit vote';
+        }
+    }
+
+    public function pollResults($debateId)
+    {
+        $poll = $this->models->load('PollModel');
+        $results = $poll->getResults($debateId);
+        $questions = $poll->getQuestions();
+        $output = array();
+        foreach ($questions as $question => $options) {
+            list($i, $question) = explode(':', $question);
+            $i = ((int) $i) - 1;
+            $opts = array();
+            foreach ($options as $j => $option) {
+                $opts[] = array('choice' => explode(':', $option)[1], 'count' => $results[$i][$j]);
+            }
+            $output[$i] = array('question' => $question, 'options' => $opts);
+        }
+        ksort($output);
+        echo Template::getTemplate('debates:pollResult')->parse(array('results' => $output));
+    }
+
+    public function pollQuestions()
+    {
+        echo json_encode($this->models->load('PollModel')->getQuestions());
     }
 }

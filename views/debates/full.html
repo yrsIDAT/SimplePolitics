@@ -2,15 +2,35 @@
 
 <div class="content">
 <h2 class="debates debate-full"> Full Debate </h2>
-{%for data in debate {
-    <div class="debate-full">{%{data.body}%}</div>
+{%for row in debate {
+    <div class="debate-full">{%{row.body}%}</div>
 }%endfor}
 </div>
 
 <div class="poll">
     <h2>Poll</h2>
-    <div class="button" id="yes">Yes</div>
-    <div class="button" id="no">No</div>
-    <div class="button" id="dontknow">Don't Know</div>
+    <a href="/debates/pollResults/{%{id}%}"><h3 style="text-align:center">Show results</h3></a>
+    {%for(1) qNum, entry in questions {
+    <div style="text-align:center">{%{entry.question}%}</div>
+    {%for(2) option in entry.options {
+    <div class="button pollchoice choice-{%{option.color}%}" question="{%{qNum}%}" optnum="{%{option.choice}%}">{%{option.text}%}</div>
+    }%endfor(2)}
+}%endfor(1)}
 </div>
+<script>
+    $('.pollchoice').each(function(i, element) {
+        var el = $(element)
+        var qNum = el.attr('question')
+        var oNum = el.attr('optnum')
+        el.click(function() {
+            $.post('/debates/pollVote/{%{id}%}/' + qNum + '/' + oNum, function(rText){
+                e = $('.pollchoice[question=' + qNum + ']')
+                e.attr('class', 'button pollchoice disabled')
+                e.unbind('click')
+                el.append('<div style="color:green">' + rText + '</div>')
+            })
+        })
+    })
+</script>
+
 {%insert _templates:footer %endinsert}
