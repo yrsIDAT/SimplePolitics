@@ -61,6 +61,9 @@ class Debates
     {
         $twfy = $this->libraries->load('TWFYAPI', TWFY_KEY);
         $debate = json_decode($twfy->query('getDebates', array("gid" => $gid, "output" => "js", "type" => 'commons')));
+        foreach ($debate as &$row) {
+            $row->body = preg_replace('#a href=("|\')/mp/\?m=(\d+)\1#', 'a href=\1/mp/redirectProfile/\2\1', $row->body);
+        }
         $poll = $this->models->load('PollModel');
         $poll->create($gid);
         $questions = $poll->getQuestions();

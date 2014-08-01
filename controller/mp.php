@@ -57,13 +57,9 @@ class MP
         echo $mp->person_id;
     }
 
-    public function profile($personID)
+    private function getLocationHeader($url)
     {
-        $twfy = $this->libraries->load('TWFYAPI', TWFY_KEY);
-        $mp = json_decode($twfy->query('getMP', array('id' => $personID, 'output' => 'js')))[0];
-
-        // Library doesn't have support for the function
-        $ch = curl_init("http://www.theyworkforyou.com/api/getBoundary?key=" . TWFY_KEY . "&name=" . urlencode($mp->constituency) . "&output=xml");
+        $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 1);
         $response = curl_exec($ch);
@@ -73,7 +69,16 @@ class MP
         $h = 'Location: ';
         $start = strpos($header, $h) + strlen($h);
         $end = strpos($header, "\r\n", $start);
-        $area = substr($header, $start, $end - $start);
+        return substr($header, $start, $end - $start);
+    }
+
+    public function profile($personID)
+    {
+        $twfy = $this->libraries->load('TWFYAPI', TWFY_KEY);
+        $mp = json_decode($twfy->query('getMP', array('id' => $personID, 'output' => 'js')))[0];
+
+        // Library doesn't have support for the function
+        $area = $this->getLocationHeader("http://www.theyworkforyou.com/api/getBoundary?key=" . TWFY_KEY . "&name=" . urlencode($mp->constituency) . "&output=xml");
         $debatesData = json_decode($twfy->query('getDebates', array('person' => $personID, 'num' => 4, 'output' => 'js', 'type' => 'commons')));
         $debates = array();
         foreach ($debatesData->rows as $debate) {
@@ -144,5 +149,16 @@ class MP
             die("Could not find MP from name");
         }
         echo $mps[0]->person_id;
+    }
+
+    public function redirectProfile($memberID)
+    {
+        $twfy = $this->libraries->load('TWFYAPI', TWFY_KEY);
+        $pageURL = $this->getLocationHeader("http://www.theyworkforyou.com/mp/?m={$memberID}");
+        if (preg_match('#/mp/(\d+)/#', $pageURL, $matches)) {
+            header("Location: /mp/profile/{$matches[1]}");
+            exit;
+        }
+        die("Could not find profile");
     }
 }
