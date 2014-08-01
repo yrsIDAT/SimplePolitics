@@ -75,7 +75,8 @@ class Debates
             $nQuestions[((int) $num) - 1] = array('question' => $q, 'options' => $options);
         }
         ksort($nQuestions);
-        echo Template::getTemplate('debates:full')->parse(array('debate' => $debate, 'questions' => $nQuestions, 'id' => $gid));
+        $results = $this->getPollResults($poll, $gid);
+        echo Template::getTemplate('debates:full')->parse(array('debate' => $debate, 'questions' => $nQuestions, 'id' => $gid, 'pollResults' => $results));
     }
 
     public function pollVote($debateId, $question, $choice)
@@ -88,9 +89,8 @@ class Debates
         }
     }
 
-    public function pollResults($debateId)
+    private function getPollResults($poll, $debateId)
     {
-        $poll = $this->models->load('PollModel');
         $results = $poll->getResults($debateId);
         $questions = $poll->getQuestions();
         $output = array();
@@ -104,6 +104,12 @@ class Debates
             $output[$i] = array('question' => $question, 'options' => $opts);
         }
         ksort($output);
+        return $output;
+    }
+
+    public function pollResults($debateId)
+    {
+        $output = $this->getPollResults($this->models->load('PollModel'), $debateId);
         echo Template::getTemplate('debates:pollResult')->parse(array('results' => $output));
     }
 

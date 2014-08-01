@@ -2,7 +2,7 @@
 
 class PollModel
 {
-    public function __construct(MySQL $db)
+    public function __construct($db)
     {
     }
 

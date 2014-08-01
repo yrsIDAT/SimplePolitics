@@ -180,7 +180,7 @@ class Provider
             throw $e;
         }
         if ($this->type === 'model') {
-            array_splice($args, 0, 1, array(MySQL::getInstance()));
+            array_splice($args, 0, 1, array(null));
         }
         try {
             $class = new ReflectionClass($name);
