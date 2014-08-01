@@ -27,7 +27,11 @@ class CodeBlock
 
     private function get_global_match($matches)
     {
-        $varname = $matches[1];
+        return $this->get_variable($matches[1]);
+    }
+
+    private function get_variable($varname)
+    {
         $parts = explode('.', $varname);
         $last = array_pop($parts);
         $arr = $this->globals;
@@ -71,10 +75,10 @@ class CodeBlock
     private function parse_for($m)
     {
         $matches = array();
-        preg_match("/(\w+)(?:\s*,\s*(\w+))?\s+in\s+(\w+)\s*\{[\r\n]*(.*)[\r\n]*\}/s", $m[2], $matches);
+        preg_match("/(\w+)(?:\s*,\s*(\w+))?\s+in\s+([\w\.]+)\s*\{[\r\n]*(.*)[\r\n]*\}/s", $m[2], $matches);
         $text = "";
-        if (isset($this->globals[$matches[3]]) && is_array($this->globals[$matches[3]])) {
-            foreach($this->globals[$matches[3]] as $k => $v) {
+        if (is_array($this->get_variable($matches[3]))) {
+            foreach($this->get_variable($matches[3]) as $k => $v) {
                 $loopvars = array($matches[1] => $v);
                 if ($matches[2]) {
                     $loopvars[$matches[1]] = $k;
