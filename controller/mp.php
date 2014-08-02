@@ -34,14 +34,17 @@ class MP
             $lat = (float) $matches[1];
             $lon = (float) $matches[2];
         }
-        if ($lat + $lon === (float) 0) {
+        if ($lat + $lon === (float) 0 && !DEMO_MODE) {
             http_response_code(400);
             die("Cannot get location data");
         }
-        $json = @json_decode(file_get_contents("http://uk-postcodes.com/latlng/$lat,$lon.json"));
-        if ($json == null || isset($json->error)) {
+        $json = @json_decode(@file_get_contents("http://uk-postcodes.com/latlng/$lat,$lon.json"));
+        if (($json == null || isset($json->error)) && !DEMO_MODE) {
             http_response_code(404);
             die("Cannot find postcode for your location");
+        }
+        if (DEMO_MODE) {
+            $json->postcode = 'PL4 6DX';
         }
         return $this->frompostcode($json->postcode);
     }

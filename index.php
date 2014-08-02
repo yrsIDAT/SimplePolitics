@@ -1,4 +1,5 @@
 <?php
+define('DEMO_MODE', true);
 
 //set_error_handler('error_handler');
 function error_handler($severity, $message, $file, $line, $args)
@@ -242,7 +243,7 @@ function load($controller_name, $parts)
                 if (($error = error_get_last()) !== null) {
                     if ($error['type'] === E_WARNING && strpos($error['message'], 'cannot access private method') !== false) {
                         showError(403, "Inaccessible function {$in_action}");
-                    } else {
+                    } elseif (!DEMO_MODE) {
                         trigger_error($error['message'] . " in {$error['file']} on line {$error['line']}", E_USER_WARNING);
                     }
                 }
